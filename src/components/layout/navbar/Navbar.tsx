@@ -1,10 +1,10 @@
 import { Link } from "react-router-dom";
-import { useNavbar } from "./useNavbar";
+import { UseNavbar } from "./UseNavbar";
 import logo from "../../../assets/icon/LogoPrimary.svg";
 
 export const Navbar = () => {
 
-  const {isLoggedIn,location,login,logout,isOpen,setIsOpen} = useNavbar();
+  const {isLoggedIn,location,login,logout,isOpen,setIsOpen} = UseNavbar();
   
   return (
     <div className="bg-[#0B0909] text-white flex justify-between py-3 px-5 md:px-10 lg:px-20 shadow-md w-full fixed top-0 left-0 lg:flex lg:justify-between lg:items-center">

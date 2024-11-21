@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useLocation } from "react-router-dom";
 
-export const useNavbar = () => {
+export const UseNavbar = () => {
   const location = useLocation();
 
   const [isLoggedIn, setIsLoggedIn] = useState<boolean>(false);

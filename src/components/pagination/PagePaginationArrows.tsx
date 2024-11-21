@@ -1,3 +1,6 @@
+import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
+import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+
 interface PagePaginationProps {
     pages: number;
     currentPage: number;
@@ -22,19 +25,7 @@ interface PagePaginationProps {
             }`}
             onClick={() => onPageChange(currentPage - 1)}
             disabled={currentPage === 1}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M6.75 15.75 3 12m0 0 3.75-3.75M3 12h18"
-              />
-            </svg>
+            <KeyboardArrowLeftIcon/>
           </button>
   
           <button
@@ -43,19 +34,7 @@ interface PagePaginationProps {
             }`}
             onClick={() => onPageChange(currentPage + 1)}
             disabled={currentPage === pages}>
-            <svg
-              xmlns="http://www.w3.org/2000/svg"
-              fill="none"
-              viewBox="0 0 24 24"
-              strokeWidth={1.5}
-              stroke="currentColor"
-              className="size-6">
-              <path
-                strokeLinecap="round"
-                strokeLinejoin="round"
-                d="M17.25 8.25 21 12m0 0-3.75 3.75M21 12H3"
-              />
-            </svg>
+            <KeyboardArrowRightIcon/>
           </button>
         </div>
         {/* Dots Indicator */}

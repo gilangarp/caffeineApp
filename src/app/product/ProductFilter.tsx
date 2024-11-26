@@ -92,7 +92,7 @@ export const ProductFilter = () => {
         <div className="filter-menu bg-black rounded-lg flex flex-col p-8 gap-4 h-max">
           <section className="filter flex flex-row justify-between text-white w-full">
             <h4 className="text-2xl">Filter</h4>
-            <button className="text-lg" onClick={onReset}>
+            <button className="text-lg font-jakarta" onClick={onReset}>
               Reset Filter
             </button>
           </section>
@@ -103,8 +103,8 @@ export const ProductFilter = () => {
           />
 
           <section className="category text-white grid gap-4">
-            <p className="text-xl text-white">Category</p>
-            <form className="flex flex-col gap-4">
+            <p className="text-xl text-white font-jakarta">Category</p>
+            <form className="flex flex-col gap-4 font-jakarta">
               {categories.map((category) => (
                 <CategoryInput
                   key={category}

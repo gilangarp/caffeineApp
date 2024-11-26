@@ -1,75 +1,21 @@
-import { ChangeEvent, useState } from "react";
 import { SearchInput } from "../../components/input/SearchInput";
 import { CategoryInput } from "../../components/input/CategoryInput";
 import { SortInput } from "../../components/input/SortInput";
+import { UseProductFilter } from "./UseProductFilter";
 
 export const ProductFilter = () => {
-  const [filter, setFilter] = useState({
-    category: "",
-    sortBy: "",
-    max_price: "",
-    min_price: "",
-    searchText: "",
-  });
-
-  const [isModalOpen, setIsModalOpen] = useState(false); // New state to handle modal visibility
-
-  const onApply = () => {
-    const defaultFilter = {
-      category: "",
-      sortBy: "",
-      max_price: "",
-      min_price: "",
-      searchText: "",
-    };
-
-    const appliedFilters = filter || defaultFilter;
-
-    console.log("Applied Filters: ", appliedFilters);
-
-    // Here you would call your action to fetch data (for dummy data, we just log it)
-
-    // Close the modal after applying the filter
-    setIsModalOpen(false);
-  };
-
-  const onReset = () => {
-    setFilter({
-      category: "",
-      sortBy: "",
-      max_price: "",
-      min_price: "",
-      searchText: "",
-    });
-
-    // Close the modal after resetting the filter
-    setIsModalOpen(false);
-  };
-
-  const handleSearchChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setFilter({ ...filter, searchText: e.target.value });
-  };
-
-  const handleCategoryChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name } = e.target;
-    setFilter({ ...filter, category: name });
-  };
-
-  const handleSortChange = (e: ChangeEvent<HTMLInputElement>) => {
-    const { name, checked } = e.target;
-    if (checked) {
-      setFilter({ ...filter, sortBy: name });
-    }
-  };
-
-  const categories = [
-    "specialty coffees",
-    "gourmet snacks",
-    "sweet indulgences",
-    "unique beverages",
-  ];
-  const sortOptions = ["cheap", "priciest", "a-z", "z-a"];
-
+  const {
+    isModalOpen,
+    setIsModalOpen,
+    onApply,
+    filter,
+    onReset,
+    handleSearchChange,
+    handleCategoryChange,
+    handleSortChange,
+    categories,
+    sortOptions,
+  } = UseProductFilter();
   return (
     <div className="w-full">
       {/* Trigger button for mobile */}

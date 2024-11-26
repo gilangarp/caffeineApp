@@ -77,4 +77,4 @@ export const authAction = {
 };
 
 export type authState = ReturnType<typeof authSlice.reducer>;
-export default authSlice.reducer;
+export const authReducer = authSlice.reducer;

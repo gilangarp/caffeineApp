@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { authAction } from "../../redux/reducers/AuthReducer";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { authAction } from "../../redux/slice/AuthSlice";
 
 export const UseLogin = () => {
   const [showPassword, setShowPassword] = useState(false);

@@ -24,7 +24,6 @@ export const ProductCard = ({
 }: ProductCardProps) => {
   return (
     <div className="w-[230px] h-[411px] lg:w-[250px] lg:h-[431px] flex flex-col items-center snap-center hover:box-s">
-        
       <div className="w-full h-[268px] overflow-hidden">
         <img
           src={product.img_product || imgError}

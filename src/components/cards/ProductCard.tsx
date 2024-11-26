@@ -3,7 +3,7 @@ import { Rating } from "../rating/Rating";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
 
 interface Product {
-  uuid: string;
+  id: string;
   img_product?: string;
   product_name: string;
   product_description: string;
@@ -46,13 +46,13 @@ export const ProductCard = ({
 
         <div className="flex w-full gap-3">
           <PrimaryButton
-            onClick={() => onBuyClick(product.uuid)}
+            onClick={() => onBuyClick(product.id)}
             text="Buy"
             style="w-full text-sm"
           />
 
           <button
-            onClick={() => onBuyClick(product.uuid)}
+            onClick={() => onBuyClick(product.id)}
             className="py-1 px-3 rounded-md border border-primary bg-transparent text-primary items-center justify-center">
             <div className="w-6 h-auto">
               <ShoppingCartIcon />

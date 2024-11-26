@@ -5,27 +5,42 @@ import persistReducer from "redux-persist/es/persistReducer";
 import storage from "redux-persist/lib/storage";
 
 import { productReducer, productState } from "./slice/ProductSlice";
-import  { authState , authReducer }  from "./slice/AuthSlice";
+import { authState, authReducer } from "./slice/AuthSlice";
+import { selectProductReducer } from "./slice/SelectProductSlice";
+import { productDetailReducer } from "./slice/ProducDetailtSlice";
+import { checkoutReducer, checkoutState } from "./slice/checkoutSlice";
 
 const authPersistConfig: PersistConfig<authState> = {
   key: "token",
   storage,
-  whitelist: ["token"  , "id" ],
+  whitelist: ["token", "id"],
 };
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 
 const productPersistConfig: PersistConfig<productState> = {
   key: "product:coffee",
   storage,
-  whitelist: [ "id" , "uuid" ],
+  whitelist: ["id", "uuid"],
 };
-const persistedProductReducer = persistReducer(productPersistConfig, productReducer);
 
+const checkoutPersistConfig: PersistConfig<checkoutState> = {
+  key: "root",
+  storage
+};
+const persistedCheckoutReducer = persistReducer(checkoutPersistConfig , checkoutReducer)
+
+const persistedProductReducer = persistReducer(
+  productPersistConfig,
+  productReducer
+);
 
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
-    product:persistedProductReducer,
+    product: persistedProductReducer,
+    selectProduct: selectProductReducer,
+    detailProduct: productDetailReducer,
+    checkout: persistedCheckoutReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

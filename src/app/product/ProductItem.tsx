@@ -17,7 +17,7 @@ export const ProductItem = () => {
             <ProductCard
               onBuyClick={handleBuyClick}
               product={productItem}
-              key={productItem.uuid}
+              key={productItem.id}
               imgError=""
             />
           ))

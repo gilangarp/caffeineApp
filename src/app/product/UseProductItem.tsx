@@ -8,8 +8,8 @@ export const UseProductItem = () => {
   const dispatch = useStoreDispatch();
 
   const { isLoading, product, filter, pagination } = useStoreSelector((state) => state.product);
-  const handleBuyClick = (uuid: string) => {
-    navigate(`/detail-product/${uuid}`);
+  const handleBuyClick = (id: string) => {
+    navigate(`/detail-product/${id}`);
   };
 
   const [currentPage, setCurrentPage] = useState(1);

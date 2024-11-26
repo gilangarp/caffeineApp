@@ -1,45 +1,9 @@
-import { useState, useEffect } from "react";
-import { useNavigate } from "react-router-dom";
 import PaginationNumbers from "../../components/pagination/PaginationNumbers";
 import { ProductCard } from "../../components/cards/ProductCard";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
-import { filterActions } from "../../redux/slice/ProductSlice";
+import { UseProductItem } from "./UseProductItem";
 
 export const ProductItem = () => {
-  const navigate = useNavigate();
-  const dispatch = useStoreDispatch();
-
-  const handleBuyClick = (uuid: string) => {
-    navigate(`/detail-product/${uuid}`);
-  };
-
-  const [currentPage, setCurrentPage] = useState(1);
-  const productsPage = 6;
-
-  const { isLoading, product, filter, pagination } = useStoreSelector(
-    (state) => state.product
-  );
-
-  useEffect(() => {
-    const fetchProducts = () => {
-      dispatch(
-        filterActions.productThunk({
-          filters: filter || {
-            category: "",
-            sortBy: "",
-            max_price: "",
-            min_price: "",
-            searchText: "",
-          },
-          currentPage,
-          productsPage,
-        })
-      );
-    };
-
-    fetchProducts();
-  }, [dispatch, filter, currentPage]);
-
+  const {handleBuyClick,currentPage,setCurrentPage,isLoading,product,pagination} = UseProductItem();
   return (
     <div className="lg:grid lg:justify-end">
       <div

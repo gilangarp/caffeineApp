@@ -5,6 +5,7 @@ import { ProductPage } from "./app/product/ProductPage";
 import { CheckoutPage } from "./app/checkout/CheckoutPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { LoginPage } from "./app/login/LoginPage";
+import { ProductDetailPage } from "./app/product-detail/ProductDetailPage";
 
 const isAuthenticated = false;
 
@@ -31,6 +32,10 @@ export const Router = createBrowserRouter([
           />
         ),
       },
+      {
+        path:"/detail-product/:uuid",
+        element:<ProductDetailPage/>
+      }
     ],
   },
   {

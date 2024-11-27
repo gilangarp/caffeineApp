@@ -1,36 +1,8 @@
-import { useNavigate } from "react-router-dom";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
 import { ProductCard } from "../../components/cards/ProductCard";
-import { filterActions } from "../../redux/slice/ProductSlice";
-import { useEffect, useRef } from "react";
+import { UseHome } from "./UseHome";
 
 export const Favorite = () => {
-  const navigate = useNavigate();
-  const dispatch = useStoreDispatch();
-
-  const { product, filter } = useStoreSelector((state) => state.product);
-  const handleBuyClick = (id: string) => {
-    navigate(`/detail-product/${id}`);
-  };
-
-  const currentPage = 1;
-  const productsPage = 6;
-
-  const hasFetched = useRef(false);
-  useEffect(() => {
-    console.log("useEffect triggered");
-    if (!hasFetched.current) {
-      dispatch(
-        filterActions.productThunk({
-          filters: filter,
-          currentPage,
-          productsPage,
-        })
-      );
-      hasFetched.current = true;
-    }
-  }, [dispatch, filter, currentPage]);
-
+  const { handleBuyClick, product } = UseHome();
   return (
     <div className="pl-5 pr-5 md:pl-5 md:pr-5 lg:pl-20 lg:pr-5 min-h-screen grid grid-rows-[auto,1fr] items-center justify-center py-5 lg:py10">
       <div className=" grid items-center justify-center p-4 gap-1">
@@ -49,14 +21,16 @@ export const Favorite = () => {
         style={{ overflowY: "hidden", scrollbarWidth: "none" }}
         className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4">
         {product && product.length > 0 ? (
-           product.slice(0, 4).map((product) => (
-            <ProductCard
-              product={product}
-              key={product.id}
-              onBuyClick={handleBuyClick}
-              imgError="https://example.com/default-image.jpg"
-            />
-          ))
+          product
+            .slice(0, 4)
+            .map((product) => (
+              <ProductCard
+                product={product}
+                key={product.id}
+                onBuyClick={handleBuyClick}
+                imgError="https://example.com/default-image.jpg"
+              />
+            ))
         ) : (
           <p>No products available</p>
         )}

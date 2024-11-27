@@ -5,7 +5,7 @@ import { productThunk } from "../actions/ProductAction";
 
 export interface IProductState {
   filter?: IFilters;
-  uuid: string;
+  id: string;
   product: IProductBody[];
   orderTotal: number;
   pagination: IPagination;
@@ -20,7 +20,7 @@ const initialState: IProductState = {
     min_price: "",
     searchText: "",
   },
-  uuid: "",
+  id: "",
   product: [],
   orderTotal: 0,
   pagination: {
@@ -68,7 +68,7 @@ const filterSlice = createSlice({
       })
       .addCase(productThunk.fulfilled, (state, action) => {
         state.isLoading = false;
-        state.uuid = action.meta.requestId;
+        state.id = action.meta.requestId;
         state.product = action.payload.products;
         state.pagination = action.payload.pagination;
       });

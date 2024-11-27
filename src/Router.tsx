@@ -6,6 +6,7 @@ import { CheckoutPage } from "./app/checkout/CheckoutPage";
 import { PrivateRoute } from "./PrivateRoute";
 import { LoginPage } from "./app/login/LoginPage";
 import { ProductDetailPage } from "./app/product-detail/ProductDetailPage";
+import { DashboardPage } from "./app/dashboard/DashboardPage";
 
 const isAuthenticated = false;
 
@@ -24,10 +25,10 @@ export const Router = createBrowserRouter([
         element: <ProductPage />,
       },
       {
-        path: "/checkout",
+        path: "/dashboard",
         element: (
           <PrivateRoute
-            element={<CheckoutPage />}
+            element={<DashboardPage />}
             isAuthenticated={isAuthenticated}
           />
         ),
@@ -35,6 +36,10 @@ export const Router = createBrowserRouter([
       {
         path:"/detail-product/:id",
         element:<ProductDetailPage/>
+      },
+      {
+        path:"/checkout",
+        element:<CheckoutPage/>,
       }
     ],
   },

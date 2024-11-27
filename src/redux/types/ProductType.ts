@@ -19,6 +19,12 @@ export interface IFilters {
   max_price?: string;
 }
 
+export interface IProductThunkArgs {
+  filters?: IFilters;
+  currentPage?: number;
+  productsPage?: number;
+}
+
 export interface IProductResponse extends IBasicResponse {
   data: IProductBody[];
 }

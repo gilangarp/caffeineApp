@@ -4,7 +4,7 @@ import { useEffect, useState } from "react";
 import { selectProductActions } from "../../redux/slice/SelectProductSlice";
 import { producDetailtAction } from "../../redux/slice/ProducDetailtSlice";
 import { ITransactionProduct } from "../../redux/types/ProductType";
-import { checkoutAction } from "../../redux/slice/checkoutSlice";
+import { checkoutAction } from "../../redux/slice/CheckoutSlice";
 
 export const useProductDetail = () => {
     const navigate = useNavigate();

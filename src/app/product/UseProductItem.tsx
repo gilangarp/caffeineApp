@@ -1,6 +1,6 @@
 import { useNavigate } from "react-router-dom";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { filterActions } from "../../redux/slice/ProductSlice";
 
 export const UseProductItem = () => {
@@ -15,25 +15,20 @@ export const UseProductItem = () => {
   const [currentPage, setCurrentPage] = useState(1);
   const productsPage = 6;
 
-
+  const hasFetched = useRef(false); 
   useEffect(() => {
-    const fetchProducts = () => {
-      dispatch(
-        filterActions.productThunk({
-          filters: filter || {
-            category: "",
-            sortBy: "",
-            max_price: "",
-            min_price: "",
-            searchText: "",
-          },
-          currentPage,
-          productsPage,
-        })
-      );
-    };
-
-    fetchProducts();
-  }, [dispatch, filter, currentPage]);
+    if (!hasFetched.current) {
+        dispatch(
+          filterActions.productThunk({
+            filters: filter,
+            currentPage,
+            productsPage,
+          })
+        );
+        hasFetched.current = true;
+      }
+    }, [dispatch, filter, currentPage]);
+    
+  
   return {handleBuyClick,currentPage,setCurrentPage,isLoading,product,pagination};
 };

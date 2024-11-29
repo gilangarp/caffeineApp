@@ -16,17 +16,6 @@ export const testimonialThunk = createAsyncThunk<
 >(
   "testimonial/fetch",
   async ({ currentPage, testimonialPage }, { rejectWithValue }) => {
-    const cacheKey = `testimonials_${currentPage}_${testimonialPage}`;
-    const cachedData = localStorage.getItem(cacheKey);
-
-    if (cachedData) {
-      const parsedData = JSON.parse(cachedData);
-      return {
-        user: parsedData.user,
-        pagination: parsedData.pagination,
-      };
-    }
-
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/testimonial`;
       const result: AxiosResponse<ITestimonialResponse> = await axios.get(url, {
@@ -42,8 +31,6 @@ export const testimonialThunk = createAsyncThunk<
           currentPage,
         },
       };
-
-      localStorage.setItem(cacheKey, JSON.stringify(dataToCache));
 
       return dataToCache;
     } catch (error) {

@@ -12,6 +12,8 @@ import { testimonialReducer } from "./slice/TestimonialSlice";
 import { checkoutReducer, checkoutState } from "./slice/CheckoutSlice";
 import { testimonialInputReducer } from "./slice/TestimonialInputSlice";
 import { historyOrderReducer } from "./slice/HistoryOrderSlice";
+import { profileReducer } from "./slice/ProfileSlice";
+import { profileSettingReducer } from "./slice/ProfileSettingSlice";
 
 const authPersistConfig: PersistConfig<authState> = {
   key: "auth-token",
@@ -37,6 +39,8 @@ const persistedCheckoutReducer = persistReducer(checkoutPersistConfig , checkout
 export const store = configureStore({
   reducer: {
     auth: persistedAuthReducer,
+    profile: profileReducer,
+    profileSetting: profileSettingReducer,
     product: persistedProductReducer,
     selectProduct: selectProductReducer,
     checkout: persistedCheckoutReducer,

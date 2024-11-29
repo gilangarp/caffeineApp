@@ -1,15 +1,13 @@
-import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, To } from "react-router-dom";
+import { useStoreSelector } from "./redux/hook";
 
 interface PrivateRouteProps {
-  element: React.ReactNode;
-  isAuthenticated: boolean;
+  children: JSX.Element;
+  to: To;
 }
 
-export const PrivateRoute = ({ element, isAuthenticated }: PrivateRouteProps) => {
-  if (!isAuthenticated) {
-    return <Navigate to="/login" />;
-  }
-  
-  return <>{element}</>;
+export const PrivateRoute = ({ children, to }: PrivateRouteProps) => {
+  const { token } = useStoreSelector((state) => state.auth);
+  if (!token) return <Navigate to={to} replace />;
+  return <>{children}</>;
 };

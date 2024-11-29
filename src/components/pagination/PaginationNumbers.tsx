@@ -1,5 +1,5 @@
-import KeyboardArrowLeftIcon from '@mui/icons-material/KeyboardArrowLeft';
-import KeyboardArrowRightIcon from '@mui/icons-material/KeyboardArrowRight';
+import KeyboardArrowLeftIcon from "@mui/icons-material/KeyboardArrowLeft";
+import KeyboardArrowRightIcon from "@mui/icons-material/KeyboardArrowRight";
 
 interface PaginationProps {
   currentPage: number;
@@ -12,6 +12,7 @@ export default function PaginationNumbers({
   totalPages,
   onPageChange,
 }: PaginationProps) {
+  
   const renderPaginationNumber = (pageNumber: number) => (
     <button
       key={pageNumber}
@@ -39,7 +40,7 @@ export default function PaginationNumbers({
         <button
           onClick={() => onPageChange(currentPage - 1)}
           className="px-3 py-3 bg-primary text-white rounded-full mr-2 transition-opacity duration-200 hover:opacity-80">
-          <KeyboardArrowLeftIcon/>
+          <KeyboardArrowLeftIcon />
         </button>
       )}
 
@@ -49,7 +50,7 @@ export default function PaginationNumbers({
         <button
           onClick={() => onPageChange(currentPage + 1)}
           className="px-3 py-3 bg-primary text-white rounded-full transition-opacity duration-200 hover:opacity-80">
-          <KeyboardArrowRightIcon/>
+          <KeyboardArrowRightIcon />
         </button>
       )}
     </div>

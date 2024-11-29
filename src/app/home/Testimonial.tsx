@@ -1,14 +1,9 @@
 import { TestimonialCard } from "../../components/cards/TestimonialCard";
-import { UseHome } from "./UseHome";
+import { UseTesimonial } from "./UseTesimonial";
 
 export const Testimonial = () => {
-  const {
-    user,
-    currentPageTesti,
-    handlePageChange,
-    pagination,
-    dummyTestimonial,
-  } = UseHome();
+  const { user, currentPage, handlePageChange, pagination, dummyTestimonial } =
+    UseTesimonial();
 
   return (
     <main>
@@ -17,7 +12,7 @@ export const Testimonial = () => {
           <TestimonialCard
             key={index}
             totalPages={pagination.totalPages}
-            currentPage={currentPageTesti}
+            currentPage={currentPage}
             onPageChange={handlePageChange}
             testimonial={testimonial}
           />
@@ -26,7 +21,7 @@ export const Testimonial = () => {
         <TestimonialCard
           key="dummy"
           totalPages={pagination.totalPages}
-          currentPage={currentPageTesti}
+          currentPage={currentPage}
           onPageChange={handlePageChange}
           testimonial={dummyTestimonial}
         />

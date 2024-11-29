@@ -1,8 +1,8 @@
 import { ProductCard } from "../../components/cards/ProductCard";
-import { UseHome } from "./UseHome";
+import { UseFavorite } from "./UseHome";
 
 export const Favorite = () => {
-  const { handleBuyClick, product } = UseHome();
+  const { handleBuyClick, product } = UseFavorite();
   return (
     <div className="pl-5 pr-5 md:pl-5 md:pr-5 lg:pl-20 lg:pr-5 min-h-screen grid grid-rows-[auto,1fr] items-center justify-center py-5 lg:py10">
       <div className=" grid items-center justify-center p-4 gap-1">

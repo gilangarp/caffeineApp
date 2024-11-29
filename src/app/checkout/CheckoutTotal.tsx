@@ -2,7 +2,7 @@ import { CheckoutMessageModal } from "../../components/alerts/CheckoutMessageMod
 import { CheckoutModal } from "../../components/alerts/CheckoutModal";
 import { PrimaryButton } from "../../components/button/PrimaryButton";
 import { TestimonialInputCard } from "../../components/cards/TestimonialInputCard";
-import { UseCheckoutTotal } from "./useCheckoutTotal";
+import { UseCheckoutTotal } from "./UseCheckoutTotal";
 import { useModalContent } from "./UseModalContent";
 
 interface TotalProps {

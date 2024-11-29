@@ -1,6 +1,6 @@
 import { ProfileDetail } from "./ProfileDetail";
 import { ProfileSetting } from "./ProfileSetting";
-import { UseProfile } from "./useProfile";
+import { UseProfile } from "./UseProfile";
 
 export const ProfilePage = () => {
   const { dataProfile } = UseProfile();

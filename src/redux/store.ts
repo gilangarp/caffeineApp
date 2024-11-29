@@ -14,6 +14,7 @@ import { testimonialInputReducer } from "./slice/TestimonialInputSlice";
 import { historyOrderReducer } from "./slice/HistoryOrderSlice";
 import { profileReducer } from "./slice/ProfileSlice";
 import { profileSettingReducer } from "./slice/ProfileSettingSlice";
+import { UserInputReducer } from "./slice/UserInputSlice";
 
 const authPersistConfig: PersistConfig<authState> = {
   key: "auth-token",
@@ -48,6 +49,7 @@ export const store = configureStore({
     testimonial: testimonialReducer,
     testimonialIput: testimonialInputReducer,
     historyOrder: historyOrderReducer,
+    register: UserInputReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

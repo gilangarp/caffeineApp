@@ -9,6 +9,7 @@ import { DashboardPage } from "./app/dashboard/DashboardPage";
 import { HistoryOrderPage } from "./app/history-order/HistoryOrderPage";
 import { ProfilePage } from "./app/profile/ProfilePage";
 import { PrivateRoute } from "./PrivateRoute";
+import { RegisterPage } from "./app/register/RegisterPage";
 
 export const Router = createBrowserRouter([
   {
@@ -58,4 +59,8 @@ export const Router = createBrowserRouter([
     path: "/login",
     element: <LoginPage />,
   },
+  {
+    path:"/register",
+    element:<RegisterPage/>
+  }
 ]);

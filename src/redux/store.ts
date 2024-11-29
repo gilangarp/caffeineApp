@@ -10,6 +10,7 @@ import { selectProductReducer } from "./slice/SelectProductSlice";
 import { productDetailReducer } from "./slice/ProducDetailtSlice";
 import { testimonialReducer } from "./slice/TestimonialSlice";
 import { checkoutReducer, checkoutState } from "./slice/CheckoutSlice";
+import { testimonialInputReducer } from "./slice/TestimonialInputSlice";
 
 const authPersistConfig: PersistConfig<authState> = {
   key: "auth-token",
@@ -40,6 +41,7 @@ export const store = configureStore({
     checkout: persistedCheckoutReducer,
     detailProduct: productDetailReducer,
     testimonial: testimonialReducer,
+    testimonialIput: testimonialInputReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

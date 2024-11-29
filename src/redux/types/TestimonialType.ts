@@ -1,7 +1,7 @@
 import { IBasicResponse } from "./ResponseType";
 
 export interface ITestimonialBody {
-  id:string;
+  id: string;
   full_name: string;
   comment: string;
   rating: string;
@@ -11,4 +11,21 @@ export interface ITestimonialBody {
 
 export interface ITestimonialResponse extends IBasicResponse {
   data: ITestimonialBody[];
+}
+
+export interface ITestimonialInputPayload {
+  id:string;
+  comment: string;
+  rating: number;
+}
+
+export interface IRejectValue {
+  error: string;
+  status?: number;
+}
+
+export interface ITestimonialInputResponse extends IBasicResponse {
+  user_id: string;
+  comment: string;
+  rating: number;
 }

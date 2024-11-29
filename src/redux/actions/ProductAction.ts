@@ -111,19 +111,19 @@ export const productDetailThunk = createAsyncThunk<
 
 export const productDetailCardThunk = createAsyncThunk<
   IDetailCardProduct[],
-  { uuid: string },
+  { id: string },
   { rejectValue: { error: string; status?: number } }
 >(
   "product/fetchDetailCard",
-  async ({ uuid }, { rejectWithValue }) => {
-    const cacheKey = `product_detail_card_${uuid}`;
+  async ({ id }, { rejectWithValue }) => {
+    const cacheKey = `product_detail_card_${id}`;
     const cachedData = localStorage.getItem(cacheKey);
     if (cachedData) {
       const parsedData = JSON.parse(cachedData);
       return parsedData;
     }
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail-card/${uuid}`;
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail-card/${id}`;
       const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(url);
       const productData = result.data.data;
       localStorage.setItem(cacheKey, JSON.stringify(productData));

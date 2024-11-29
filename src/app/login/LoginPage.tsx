@@ -1,13 +1,19 @@
-import { LoginForm } from "./LoginForm";
+import { LoginFooter } from "./LoginFooter";
+import { LoginHeader } from "./LoginHeader";
+import imageLogin from "../../assets/images/login.png"
 
 export const LoginPage = () => {
   return (
-    <div className="flex justify-center items-center h-screen bg-gray-100">
-      <div className="bg-white p-8 rounded-lg shadow-lg w-full max-w-sm">
-        <h2 className="text-2xl font-bold text-center mb-6">Login</h2>
-        {/* Form Login */}
-        <LoginForm />
+    <main>
+      <div className="grid grid-cols-1 grid-rows-1 md:grid-cols-[30%,70%] lg:grid-rows-1">
+        <div className="hidden md:block bg-black relative">
+          <img className="w-full h-full object-cover" src={imageLogin} alt="" />
+        </div>
+        <div className="py-2 px-10 md:px-14 lg:px-20 gap-5 grid content-center mt-32 md:mt-0">
+          <LoginHeader />
+          <LoginFooter />
+        </div>
       </div>
-    </div>
+    </main>
   );
 };

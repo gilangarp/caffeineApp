@@ -1,5 +1,5 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
-import { testimonialInputThunk } from "../actions/Testimonial";
+import { testimonialInputThunk } from "../actions/TestimonialAction";
 import { IRejectValue } from "../types/TestimonialType";
 
 interface TestimonialState {

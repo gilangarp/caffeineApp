@@ -7,6 +7,7 @@ import { PrivateRoute } from "./PrivateRoute";
 import { LoginPage } from "./app/login/LoginPage";
 import { ProductDetailPage } from "./app/product-detail/ProductDetailPage";
 import { DashboardPage } from "./app/dashboard/DashboardPage";
+import { HistoryOrderPage } from "./app/history-order/HistoryOrderPage";
 
 const isAuthenticated = false;
 
@@ -40,6 +41,10 @@ export const Router = createBrowserRouter([
       {
         path:"/checkout",
         element:<CheckoutPage/>,
+      },
+      {
+        path:"history-order",
+        element:<HistoryOrderPage/>
       }
     ],
   },

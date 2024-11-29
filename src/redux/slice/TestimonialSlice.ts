@@ -1,7 +1,7 @@
 import { createSlice, PayloadAction } from "@reduxjs/toolkit";
 import { ITestimonialBody } from "../types/TestimonialType";
 import { IPagination } from "../types/Pagiination";
-import { testimonialThunk } from "../actions/Testimonial";
+import { testimonialThunk } from "../actions/TestimonialAction";
 
 interface ITestimonialState {
   user: ITestimonialBody[];

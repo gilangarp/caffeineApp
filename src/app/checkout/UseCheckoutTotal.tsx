@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { testimonialInputThunk } from "../../redux/actions/Testimonial";
+import { testimonialInputThunk } from "../../redux/actions/TestimonialAction";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
 
 export const UseCheckoutTotal = () => {

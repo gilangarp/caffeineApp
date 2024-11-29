@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
-import { testimonialThunk } from "../../redux/actions/Testimonial";
+import { testimonialThunk } from "../../redux/actions/TestimonialAction";
 
 export const UseTesimonial = () => {
   const dispatch = useStoreDispatch();

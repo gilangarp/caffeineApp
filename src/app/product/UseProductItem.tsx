@@ -17,8 +17,10 @@ export const UseProductItem = () => {
   const [currentPage, setCurrentPage] = useState(currentPageFromUrl);
 
   useEffect(() => {
-    navigate(`?page=${currentPage}`, { replace: true });
-  }, [currentPage, navigate]);
+    if (currentPage !== currentPageFromUrl) {
+      navigate(`?page=${currentPage}`, { replace: true });
+    }
+  }, [currentPage, navigate, currentPageFromUrl]);
 
   useEffect(() => {
     dispatch(
@@ -28,7 +30,7 @@ export const UseProductItem = () => {
         productsPage,
       })
     );
-  }, [dispatch, filter, currentPage]);
+  }, [dispatch, filter, currentPage, productsPage]);
 
   const handleBuyClick = (id: string) => {
     navigate(`/detail-product/${id}`);

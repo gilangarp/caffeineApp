@@ -10,6 +10,7 @@ import { HistoryOrderPage } from "./app/history-order/HistoryOrderPage";
 import { ProfilePage } from "./app/profile/ProfilePage";
 import { PrivateRoute } from "./PrivateRoute";
 import { RegisterPage } from "./app/register/RegisterPage";
+import { DetailHistoryOrderPage } from "./app/detail-history-order/DetailHistoryOrderPage";
 
 export const Router = createBrowserRouter([
   {
@@ -53,6 +54,22 @@ export const Router = createBrowserRouter([
           </PrivateRoute>
         ),
       },
+      {
+        path: "/detail-order",
+        element: (
+          <PrivateRoute to={"/login"}>
+            <HistoryOrderPage />
+          </PrivateRoute>
+        ),
+      },
+      {
+        path: "/order/:id",
+        element: (
+          <PrivateRoute to={"/login"}>
+            <DetailHistoryOrderPage />
+          </PrivateRoute>
+        ),
+      },
     ],
   },
   {
@@ -60,7 +77,7 @@ export const Router = createBrowserRouter([
     element: <LoginPage />,
   },
   {
-    path:"/register",
-    element:<RegisterPage/>
-  }
+    path: "/register",
+    element: <RegisterPage />,
+  },
 ]);

@@ -35,6 +35,8 @@ export const UseProfileDetail = () => {
     }
   };
 
+  console.log("gambar: ",formData.avatar)
+
   const onSubmitHandler = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     if (authState.id) {
@@ -45,6 +47,7 @@ export const UseProfileDetail = () => {
       dispatch(profileSettingActions.profileSettingThunk(formDataToSend));
     }
   };
+  
 
   return {
     imagePreview,

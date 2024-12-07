@@ -33,7 +33,11 @@ export const profileSettingThunk = createAsyncThunk<
   try {
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/profile/setting/${params.id}`;
     console.log(url)
-    const result: AxiosResponse<IProfileResponse> = await axios.patch(url, params);
+    const result: AxiosResponse<IProfileResponse> = await axios.patch(url, params,{
+      headers: {
+        'Content-Type': 'multipart/form-data',
+      },
+    });
 
     return result.data.data;
   } catch (error) {

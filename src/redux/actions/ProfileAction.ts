@@ -32,7 +32,6 @@ export const profileSettingThunk = createAsyncThunk<
 >("createUserTunk", async (params: IProfileBody, { rejectWithValue }) => {
   try {
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/profile/setting/${params.id}`;
-    console.log(url)
     const result: AxiosResponse<IProfileResponse> = await axios.patch(url, params,{
       headers: {
         'Content-Type': 'multipart/form-data',

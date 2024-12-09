@@ -43,3 +43,44 @@ export interface IOrderDetail {
   info: IOrderInfo;
   product: IProduct[];
 }
+
+export interface ITransaction_product {
+  product_id: string;
+  size_id: number;
+  fd_option_id?: string;
+}
+
+export interface ITransactionBody {
+  user_id: number;
+  payments_id: number;
+  shipping_id: number;
+  status_id: number;
+  subtotal: number;
+  tax: number;
+  grand_total: number;
+}
+
+export interface ITransactionWithDetailsBody {
+  user_id: string;
+  payments_id: number;
+  shipping_id: number;
+  status_id: number;
+  subtotal: number;
+  tax: number;
+  grand_total: number;
+  products: {
+    product_id: string;
+    size_id: string | number;
+    fd_option_id: number;
+  }[];
+}
+
+export interface IDataTransaction extends ITransactionBody {
+  id: string;
+  created_date: string;
+  updated_at?: string;
+}
+
+export interface ITransactionResponse extends IBasicResponse {
+  data: IDataTransaction[];
+}

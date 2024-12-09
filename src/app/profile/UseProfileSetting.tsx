@@ -7,7 +7,6 @@ export const UseProfileSetting = () => {
   const dispatch = useStoreDispatch();
   const dataProfile = useStoreSelector((state) => state.profile.dataProfile);
   const authState = useStoreSelector((state) => state.auth);
-  console.log(` "id adalah": ${authState.id}`);
   const { isLoading } = useStoreSelector((state) => state.profileSetting);
 
   const [formData, setFormData] = useState({

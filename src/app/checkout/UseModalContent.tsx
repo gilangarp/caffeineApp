@@ -8,7 +8,7 @@ export const useModalContent = (isLoading: boolean, isSuccess: boolean) => {
   const modalBody = isLoading
     ? "Please wait while we process your payment."
     : isSuccess
-    ? "Thank you for your order! You will receive a confirmation email shortly."
+    ? "Thank you for your order!"
     : "";
 
   return { modalHeader, modalBody };

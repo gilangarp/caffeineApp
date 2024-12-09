@@ -92,7 +92,6 @@ export const useProductDetail = () => {
           delivery_id: undefined,
           payment_id: undefined,
         };
-        console.log("product send ck:",defaultProduct)
         dispatch(checkoutAction.checkoutProduct(defaultProduct));
       }
       navigate("/checkout");

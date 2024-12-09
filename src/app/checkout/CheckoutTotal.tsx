@@ -89,12 +89,14 @@ export const CheckoutTotal = ({
             onClose={handleCloseModal}
             onConfirm={handleConfirmCheckout}
           />
+          
           <CheckoutMessageModal
             isOpen={isMessageModalOpen}
             textBody={modalBody}
             textHeader={modalHeader}
             onConfirm={handleCloseMessageModal}
           />
+
           {isSuccess && isReviewModalOpen && (
             <TestimonialInputCard onSubmit={handleReviewSubmit} />
           )}

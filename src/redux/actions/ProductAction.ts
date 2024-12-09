@@ -59,8 +59,6 @@ export const productThunk = createAsyncThunk<
           error.response?.data?.error?.message ||
           "An unexpected error occurred";
         const status = error.response?.status;
-
-        console.log(errorMessage);
         return rejectWithValue({
           error: errorMessage,
           status: status,

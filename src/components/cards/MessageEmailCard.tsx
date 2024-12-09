@@ -9,9 +9,6 @@ export const MessageEmailCard = ({ onClose }: MessageModalProps) => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-
-    console.log("Sending email with the following details:");
-    console.log("Body:", body);
   };
 
   return (

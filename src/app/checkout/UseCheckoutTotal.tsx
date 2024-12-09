@@ -1,6 +1,8 @@
 import { useState } from "react";
 import { testimonialInputThunk } from "../../redux/actions/TestimonialAction";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { UseCheckOutOrder } from "./UseCheckOutOrder";
+import { transactionThunk } from "../../redux/actions/TransactionAction";
 
 export const UseCheckoutTotal = () => {
   const dispatch = useStoreDispatch();
@@ -13,14 +15,33 @@ export const UseCheckoutTotal = () => {
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
 
+  const { checkout } = useStoreSelector((state) => state.checkout);
+  const { id } = useStoreSelector((state) => state.auth);
+  const { orderTotal, tax, total } = UseCheckOutOrder();
+
   const handleConfirmCheckout = async () => {
+    const formData = {
+      user_id: id || "",
+      payments_id: 1,
+      shipping_id: 1,
+      status_id: 3,
+      subtotal: orderTotal,
+      tax: tax,
+      grand_total: total,
+      products: [
+        {
+          product_id: checkout[0].id || "", 
+          size_id: checkout[0].size_id || "",
+          fd_option_id: checkout[0].ice_hot || 0,
+        },
+      ],
+    }; 
+    dispatch(transactionThunk(formData));  
     setLoading(true);
-    setTimeout(() => {
-      setLoading(false);
-      setSuccess(true);
-      setModalOpen(false);
-      setMessageModalOpen(true);
-    }, 200);
+    setLoading(false);
+    setSuccess(true);
+    setModalOpen(false);
+    setMessageModalOpen(true);
   };
 
   const handleCloseMessageModal = () => {
@@ -28,12 +49,9 @@ export const UseCheckoutTotal = () => {
     setReviewModalOpen(true);
   };
 
-  const id  = useStoreSelector((state) => state.auth.id);
-
   const handleReviewSubmit = (review: string, rating: number) => {
-    const dataReview = { comment: review, rating, id: id || '' };
+    const dataReview = { comment: review, rating, id: id || "" };
     dispatch(testimonialInputThunk(dataReview));
-    console.log("Review submitted:", review, "Rating:", rating, "id :" , id);
     setMessageModalOpen(false);
     setReviewModalOpen(false);
   };

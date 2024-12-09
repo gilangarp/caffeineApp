@@ -1,9 +1,12 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IPagination } from "../types/Pagiination";
 import {
+  IDataTransaction,
   IFilterHistoryOrder,
   IHistoryOrderBody,
   IHistoryResponse,
+  ITransactionResponse,
+  ITransactionWithDetailsBody,
 } from "../types/TransactionType";
 import axios, { AxiosError, AxiosResponse } from "axios";
 import { IOrderDetail } from "../types/TransactionType";
@@ -59,9 +62,13 @@ export const historyOrderDetailThunk = createAsyncThunk<
   { rejectValue: { error: Error; status?: number } }
 >("historyOrder/fetchHistory", async ({ id }, { rejectWithValue }) => {
   try {
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/transaction/detail-history/${id}`;
-    const result: AxiosResponse<{ data: IOrderDetail[] }> = await axios.get(url);
-    return result.data.data; 
+    const url = `${
+      import.meta.env.VITE_REACT_APP_API_URL
+    }/transaction/detail-history/${id}`;
+    const result: AxiosResponse<{ data: IOrderDetail[] }> = await axios.get(
+      url
+    );
+    return result.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
       return rejectWithValue({
@@ -73,3 +80,32 @@ export const historyOrderDetailThunk = createAsyncThunk<
   }
 });
 
+export const transactionThunk = createAsyncThunk<
+  IDataTransaction[],
+  ITransactionWithDetailsBody,
+  { rejectValue: { error: string; status?: number } }
+>("transaction/create", async (form, { rejectWithValue }) => {
+  const { VITE_REACT_APP_API_URL } = import.meta.env;
+  const url = `${VITE_REACT_APP_API_URL}/transaction/add`;
+
+  try {
+    const result: AxiosResponse<ITransactionResponse> = await axios.post(
+      url,
+      form
+    );
+    return result.data.data;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      const errorMessage =
+        error.response?.data?.error?.message || "An unexpected error occurred";
+      const status = error.response?.status;
+      return rejectWithValue({
+        error: errorMessage,
+        status: status,
+      });
+    }
+    return rejectWithValue({
+      error: "An unexpected error occurred.",
+    });
+  }
+});

@@ -11,7 +11,6 @@ export const loginThunk = createAsyncThunk<
   async (form, { rejectWithValue }) => {
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/login`;
-      console.log(url);
       const result: AxiosResponse<IAuthResponse> = await axios.post(url, form);
       const { token, id } = result.data.data[0];
       return { token, id };
@@ -19,8 +18,6 @@ export const loginThunk = createAsyncThunk<
       if (error instanceof AxiosError) {
         const errorMessage = error.response?.data?.error?.message || "An unexpected error occurred";
         const status = error.response?.status;
-
-        console.log(errorMessage);
         return rejectWithValue({
           error: errorMessage,
           status: status,

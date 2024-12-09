@@ -22,7 +22,7 @@ export const CheckoutMessageModal = ({
   if (!isOpen) return null;
 
   const handleConfirm = async () => {
-    setIsLoading(true); // Set loading to true
+    setIsLoading(true);
     await dispatch(checkoutAction.removeAll());
     setTimeout(() => {
       setIsLoading(false); 

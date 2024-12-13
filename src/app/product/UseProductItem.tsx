@@ -10,7 +10,23 @@ export const UseProductItem = () => {
 
   const { isLoading, product, filter, pagination } = useStoreSelector((state) => state.product);
   
-  const productsPage = 6;
+  const [productsPage, setProductsPage] = useState(4);
+
+  useEffect(() => {
+    const updateProductsPage = () => {
+      if (window.matchMedia("(min-width: 768px)").matches) {
+        setProductsPage(6); 
+      } else {
+        setProductsPage(4); 
+      }
+    };
+    updateProductsPage(); 
+    window.addEventListener("resize", updateProductsPage); 
+
+    return () => {
+      window.removeEventListener("resize", updateProductsPage); 
+    };
+  }, []);
 
   const queryParams = new URLSearchParams(location.search);
   const currentPageFromUrl = parseInt(queryParams.get("page") || "1"); 

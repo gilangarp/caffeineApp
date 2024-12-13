@@ -5,10 +5,10 @@ import { UseProductItem } from "./UseProductItem";
 export const ProductItem = () => {
   const {handleBuyClick,currentPage,setCurrentPage,isLoading,product,pagination} = UseProductItem();
   return (
-    <div className="lg:grid lg:justify-end">
+    <div className="w-full overflow-hidden">
       <div
-        style={{ overflowY: "hidden", scrollbarWidth: "none" }}
-        className="w-full grid justify-items-center items-center grid-cols-1 md:grid-cols-[1fr,1fr] gap-3 lg:gap-20 h-fit p-5 overflow-x-scroll snap-mandatory snap-x">
+        style={{ overflowY: "hidden", scrollbarWidth: "none" }} 
+        className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] md:grid-cols-2 lg:grid-cols-2 gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x md:overflow-x-auto md:snap-none">
         {/* Product */}
         {isLoading ? (
           <p>Loading...</p>

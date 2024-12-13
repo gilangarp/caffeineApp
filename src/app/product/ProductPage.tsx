@@ -12,7 +12,7 @@ export const ProductPage = () => {
         <h1 className="text-heading_mobile lg:text-heading_desktop text-black font-jakarta ml-0">
           Today's <span className="text-[#8E6447]">Promos</span>
         </h1>
-        <div className="grid grid-row-[auto,1fr] lg:grid-cols-[auto,1fr]">
+        <div className="grid gap-5 grid-row-[auto,1fr] lg:grid-cols-[auto,1fr]">
           <ProductFilter />
           <ProductItem/>
         </div>

@@ -2,7 +2,7 @@ import aboutImage from "../../assets/images/1ff108caf42e05aafc2d71749bf4d116.png
 
 export const AboutMe = () => {
   return (
-    <section className="grid grid-cols-1 grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 h-fit lg:max-h-[70vh] ">
+    <section className="grid grid-cols-1 font-jakarta grid-rows-1 lg:grid-cols-2 lg:grid-rows-1 h-fit lg:max-h-[70vh] ">
         <article className="flex flex-col place-content-center py-5 gap-5 lg:gap-4 px-5 md:px-10  lg:pl-14 lg:pr-5">
           <div className="grid grid-cols-[auto,1fr] items-center gap-2 ">
             <div className="w-2 h-16 bg-primary"></div>

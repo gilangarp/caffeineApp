@@ -9,8 +9,8 @@ export const GetStarted = () => {
     navigate("/product");
   };
   return (
-    <section className="min-h-screen grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1">
-      <article className="bg-black min-h-full flex flex-col justify-center pt-10 md:pt-16 md:py-5 gap-5 lg:gap-4 text-white px-5 md:px-10 lg:pl-14 lg:pr-5">
+    <section className="min-h-screen grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 font-jakarta">
+      <article className="bg-black min-h-full flex flex-col justify-center pt-14 md:pt-16 md:py-5 gap-5 lg:gap-4 text-white px-5 md:px-10 lg:pl-14 lg:pr-5">
         <h1 className="text-2xl font-san lg:text-heading_desktop font-medium">
           Start Your Day with Coffee and Good Meals
         </h1>

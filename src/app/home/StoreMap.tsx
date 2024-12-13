@@ -2,7 +2,7 @@ import mapsImage from "../../assets/images/Huge Global.png";
 
 export default function StoreMap() {
   return (
-    <div className="min-h-screen grid grid-rows-[auto,1fr] items-center justify-center pl-5 pr-5 md:pl-5 md:pr-5 lg:pl-20 lg:pr-20 py-5 lg:py-10">
+    <div className="min-h-[50vh] grid grid-rows-[auto,1fr] items-center justify-center pl-5 pr-5 md:pl-5 md:pr-5 lg:pl-20 lg:pr-20 pb-5 lg:pb-10">
       <div className=" lg:pr-5 grid items-center justify-center gap-3 pb-9">
         <h1 className="text-heading_mobile lg:text-heading_desktop font-medium text-[#8E6447] text-center">
           Visit Our Store{" "}

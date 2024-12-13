@@ -21,14 +21,16 @@ export const TestimonialCard = ({
   totalPages,
 }: ITestimonialCardProps) => {
   return (
-    <div className="min-h-screen lg:min-h-[50vh] grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 bg-gradient-to-r pl-5 md:pr-10 pr-5 md:pl-10 lg:pl-20 lg:pr-20 py-5 lg:py-10">
+    <div className="min-h-[50vh] gap-10 font-jakarta lg:min-h-[50vh] grid grid-cols-1 grid-rows-2 lg:grid-cols-2 lg:grid-rows-1 bg-gradient-to-r pl-5 md:pr-10 pr-5 md:pl-10 lg:pl-20 lg:pr-20 py-5 lg:py-10">
+
       <div className="flex items-center justify-center">
         <img
-          className="w-[289px] h-[261px] object-cover object-top"
+          className="w-full h-[261px] md:h-[332px] object-cover object-top"
           src={testimonial.user_img || "default-image-url"}
           alt={testimonial.full_name}
         />
       </div>
+
       <div className="">
         <p className="text-white font-normal flex items-center">TESTIMONIAL</p>
         <div className="flex items-center gap-3">
@@ -53,6 +55,7 @@ export const TestimonialCard = ({
           />
         </div>
       </div>
+
     </div>
   );
 };

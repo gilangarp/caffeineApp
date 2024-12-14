@@ -1,19 +1,14 @@
+import { ITestimonialBody } from "../../redux/types/TestimonialType";
 import { PagePaginationArrows } from "../pagination/PagePaginationArrows";
 import { Rating } from "../rating/Rating";
 
-interface ITestimonialBody {
-  full_name: string;
-  comment: string;
-  rating: string;
-  user_img: string;
-  user_phone: string;
-}
 interface ITestimonialCardProps {
   testimonial: ITestimonialBody;
   totalPages: number;
   currentPage: number;
   onPageChange: (page: number) => void;
 }
+
 export const TestimonialCard = ({
   testimonial,
   currentPage,
@@ -26,12 +21,12 @@ export const TestimonialCard = ({
       <div className="flex items-center justify-center">
         <img
           className="w-full h-[261px] md:h-[332px] object-cover object-top"
-          src={testimonial.user_img || "default-image-url"}
+          src={testimonial.profile_image || "default-image-url"}
           alt={testimonial.full_name}
         />
       </div>
 
-      <div className="">
+      <div className="grid">
         <p className="text-white font-normal flex items-center">TESTIMONIAL</p>
         <div className="flex items-center gap-3">
           <div className="bg-primary w-2 h-12"></div>
@@ -39,8 +34,8 @@ export const TestimonialCard = ({
             {testimonial.full_name}
           </h1>
         </div>
-        <p className="text-base font-normal flex items-center text-primary">
-          {testimonial.user_phone}
+        <p className="text-base capitalize font-normal flex items-center text-primary">
+          {testimonial.role}
         </p>
         <p className="text-white text-base font-normal">
           {testimonial.comment}

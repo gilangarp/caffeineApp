@@ -21,8 +21,8 @@ export const UseTesimonial = () => {
     comment:
       "This is a dummy testimonial to show how it would look in the app.",
     rating: "5",
-    user_img: "https://via.placeholder.com/150",
-    user_phone: "+1 234 567 890",
+    profile_image: "https://via.placeholder.com/150",
+    role: "user",
   };
   return {
     user,

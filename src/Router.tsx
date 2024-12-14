@@ -12,72 +12,80 @@ import { PrivateRoute } from "./PrivateRoute";
 import { RegisterPage } from "./app/register/RegisterPage";
 import { DetailHistoryOrderPage } from "./app/detail-history-order/DetailHistoryOrderPage";
 
-export const Router = createBrowserRouter([
+export const Router = createBrowserRouter(
+  [
+    {
+      path: "/",
+      element: <UserLayout />,
+      errorElement: <h1>Error</h1>,
+      children: [
+        {
+          path: "",
+          element: <HomePage />,
+        },
+        {
+          path: "/product",
+          element: <ProductPage />,
+        },
+        {
+          path: "/dashboard",
+          element: (
+            <PrivateRoute to={"/login"}>
+              <DashboardPage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/detail-product/:id",
+          element: <ProductDetailPage />,
+        },
+        {
+          path: "/checkout",
+          element: <CheckoutPage />,
+        },
+        {
+          path: "history-order",
+          element: <HistoryOrderPage />,
+        },
+        {
+          path: "/profile",
+          element: (
+            <PrivateRoute to={"/login"}>
+              <ProfilePage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/detail-order",
+          element: (
+            <PrivateRoute to={"/login"}>
+              <HistoryOrderPage />
+            </PrivateRoute>
+          ),
+        },
+        {
+          path: "/order/:id",
+          element: (
+            <PrivateRoute to={"/login"}>
+              <DetailHistoryOrderPage />
+            </PrivateRoute>
+          ),
+        },
+      ],
+    },
+    {
+      path: "/login",
+      element: <LoginPage />,
+    },
+    {
+      path: "/register",
+      element: <RegisterPage />,
+    },
+  ],
   {
-    path: "/",
-    element: <UserLayout />,
-    errorElement: <h1>Error</h1>,
-    children: [
-      {
-        path: "",
-        element: <HomePage />,
-      },
-      {
-        path: "/product",
-        element: <ProductPage />,
-      },
-      {
-        path: "/dashboard",
-        element: (
-          <PrivateRoute to={"/login"}>
-            <DashboardPage />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/detail-product/:id",
-        element: <ProductDetailPage />,
-      },
-      {
-        path: "/checkout",
-        element: <CheckoutPage />,
-      },
-      {
-        path: "history-order",
-        element: <HistoryOrderPage />,
-      },
-      {
-        path: "/profile",
-        element: (
-          <PrivateRoute to={"/login"}>
-            <ProfilePage />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/detail-order",
-        element: (
-          <PrivateRoute to={"/login"}>
-            <HistoryOrderPage />
-          </PrivateRoute>
-        ),
-      },
-      {
-        path: "/order/:id",
-        element: (
-          <PrivateRoute to={"/login"}>
-            <DetailHistoryOrderPage />
-          </PrivateRoute>
-        ),
-      },
-    ],
-  },
-  {
-    path: "/login",
-    element: <LoginPage />,
-  },
-  {
-    path: "/register",
-    element: <RegisterPage />,
-  },
-]);
+    future: {
+      v7_skipActionErrorRevalidation: true,
+      v7_startTransition: true,
+    },
+  }
+);

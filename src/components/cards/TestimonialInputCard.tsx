@@ -13,7 +13,7 @@ export const TestimonialInputCard = ({ onSubmit,}: ITestimonialInputCardProps) =
   const navigate = useNavigate();
 
   const handleClick = () => {
-    navigate("/product");
+    navigate("/history-order");
   };
   const [review, setReview] = useState<string>("");
   const [rating, setRating] = useState<number>(0);

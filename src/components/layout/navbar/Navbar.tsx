@@ -4,6 +4,8 @@ import { UseNavbar } from "./useNavbar";
 import SearchIcon from "@mui/icons-material/Search";
 import { SearchInputHeader } from "../../input/SearchInputHeader";
 import ShoppingCartOutlinedIcon from "@mui/icons-material/ShoppingCartOutlined";
+import MenuIcon from "@mui/icons-material/Menu";
+import CloseIcon from "@mui/icons-material/Close";
 
 export const Navbar = () => {
   const {
@@ -49,9 +51,13 @@ export const Navbar = () => {
         onClick={() => setIsOpen(!isOpen)}
         className="absolute right-8 top-2 cursor-pointer lg:hidden">
         {isOpen ? (
-          <div className="w-6 h-6 text-white">close</div>
+          <div className="w-6 h-6 text-white">
+            <CloseIcon />
+          </div>
         ) : (
-          <div className="w-6 h-6 text-white">open</div>
+          <div className="w-6 h-6 text-white">
+            <MenuIcon />
+          </div>
         )}
       </div>
 
@@ -63,11 +69,22 @@ export const Navbar = () => {
           <div className="flex flex-col items-center gap-4 text-white">
             {isLoggedIn ? (
               <div className="flex flex-col items-center gap-3">
-                <Link to="/l" className="text-sm">
-                  .
-                </Link>
-                <Link to="/k" className="text-sm">
-                  .
+                <button
+                  className={`${showSearchInput ? "hidden" : ""} `}
+                  onClick={handleSearchClick}>
+                  <SearchIcon />
+                </button>
+                {showSearchInput && (
+                  <form onSubmit={handleSearchSubmit}>
+                    <SearchInputHeader
+                      value={searchValue}
+                      onChange={handleSearchChange}
+                    />
+                    <button type="submit" style={{ display: "none" }} />{" "}
+                  </form>
+                )}
+                <Link to="/checkout">
+                  <ShoppingCartOutlinedIcon />
                 </Link>
                 <button
                   onClick={logout}

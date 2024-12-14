@@ -7,7 +7,7 @@ export const UseProfileDetail = () => {
   const { isLoading } = useStoreSelector((state) => state.profile);
 
   const [formData, setFormData] = useState({
-    avatar: "",
+    profile: "",
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);

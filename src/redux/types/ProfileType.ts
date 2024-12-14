@@ -2,10 +2,10 @@ import { IBasicResponse } from "./ResponseType";
 
 export interface IProfileBody {
   id: string;
-  avatar?: string;
+  profile_image?: string;
   username?: string;
   full_name?: string;
-  user_phone?: string;
+  phone_number?: string;
   user_email?: string;
   created_at?: string;
   address?: string;

@@ -10,13 +10,9 @@ export const UseProfileSetting = () => {
   const { isLoading } = useStoreSelector((state) => state.profileSetting);
 
   const [formData, setFormData] = useState({
-    avatar: "",
-    username: "",
     full_name: "",
-    user_pass: "",
-    user_phone: "",
     user_email: "",
-    created_at: "",
+    phone_number: "",
     address: "",
   });
 
@@ -41,13 +37,9 @@ export const UseProfileSetting = () => {
         await dispatch(profileSettingActions.profileSettingThunk(formDataToSend));
 
         setFormData({
-          avatar: "",
-          username: "",
           full_name: "",
-          user_pass: "",
-          user_phone: "",
           user_email: "",
-          created_at: "",
+          phone_number: "",
           address: "",
         });
 

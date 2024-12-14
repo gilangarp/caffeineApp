@@ -1,9 +1,9 @@
 import { ProfileDetail } from "./ProfileDetail";
 import { ProfileSetting } from "./ProfileSetting";
-import { UseProfile } from "./UseProfile";
+import { UseProfileSetting } from "./UseProfileSetting";
 
 export const ProfilePage = () => {
-  const { dataProfile } = UseProfile();
+  const {dataProfile} = UseProfileSetting();
 
   return (
     <main className="py-2 px-5 md:px-10 lg:px-14 flex flex-col gap-4">

@@ -22,7 +22,7 @@ export const ProfileDetail = ({ profile }: { profile: IProfileBody }) => {
               ) : (
                 <img
                   className="h-[113px] w-[113px]"
-                  src={profile.avatar}
+                  src={profile.profile_image || ''}
                   alt=""
                 />
               )}

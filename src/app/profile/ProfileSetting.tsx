@@ -52,13 +52,13 @@ export const ProfileSetting = () => {
             <Input
               input={{
                 type: "text",
-                name: "user_phone",
+                name: "phone_number",
                 placeholder:
                   dataProfile.length > 0
-                    ? `${dataProfile[0].user_phone || "Enter Your Phone"}`
+                    ? `${dataProfile[0].phone_number || "Enter Your Phone"}`
                     : "Enter Your Phone",
                 autocomplete: "phone",
-                value: formData.user_phone,
+                value: formData.phone_number,
                 onChange: onChangeHandler,
               }}
             />

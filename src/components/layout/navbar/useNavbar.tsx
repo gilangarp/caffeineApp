@@ -35,7 +35,7 @@ export const UseNavbar = () => {
 
   const logout = () => {
     dispatch(authAction.logout());
-    navigate("/");  
+    navigate("/login");  
   };
 
   return { location,handleSearchClick ,showSearchInput,searchValue,handleSearchSubmit, isLoggedIn,handleSearchChange, logout , isOpen,setIsOpen };

@@ -28,7 +28,7 @@ export const UseLogin = () => {
 
   useEffect(() => {
     if (token) {
-      navigate('/');
+      navigate('/profile');
     }
   }, [navigate, token]);
 

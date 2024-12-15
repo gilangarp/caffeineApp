@@ -11,6 +11,7 @@ export const RegisterForm = () => {
     passwordsMatch,
     isLoading,
     isPasswordFilled,
+    error,
   } = UseRegiter();
   return (
     <form className="grid gap-6" onSubmit={handleSubmit}>
@@ -72,6 +73,7 @@ export const RegisterForm = () => {
           )}
         </div>
       )}
+      {error && <p className="text-red-500">{error}</p>}
 
       <button
         type="submit"

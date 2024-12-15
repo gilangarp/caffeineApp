@@ -6,13 +6,16 @@ export interface IUserState {
   dataUser: IUserBody[];
   isLoading: boolean;
   error: string | null;
+  success: boolean;
 }
 
 const initialState: IUserState = {
   isLoading: false,
   dataUser: [],
   error: null,
+  success: false,
 };
+
 
 const UserInputSlice = createSlice({
   name: "profile",
@@ -24,23 +27,32 @@ const UserInputSlice = createSlice({
     setError: (state, action: PayloadAction<string | null>) => {
       state.error = action.payload;
     },
+    resetState: (state) => {
+      state.isLoading = false;
+      state.dataUser = [];
+      state.error = null;
+      state.success = false;
+    },
   },
   extraReducers: (builder) => {
     builder
       .addCase(userInputThunk.pending, (state) => {
         state.isLoading = true;
         state.error = null;
+        state.success = false;
       })
       .addCase(userInputThunk.rejected, (state, action) => {
         state.isLoading = false;
-        state.error = action.error.message || "An error occurred";
+        state.error = action.payload?.error || "An error occurred";
+        state.success = false;
       })
       .addCase(userInputThunk.fulfilled, (state, action) => {
         state.isLoading = false;
         state.dataUser = action.payload;
         state.error = null;
+        state.success = true;
       });
-  },
+  }  
 });
 
 export const UserInputActions = {

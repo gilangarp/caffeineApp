@@ -6,49 +6,43 @@ import { useNavigate } from "react-router-dom";
 export const UseRegiter = () => {
   const dispatch = useStoreDispatch();
   const navigate = useNavigate();
-  const { dataUser, isLoading ,error} = useStoreSelector((state) => state.register);
+  const { isLoading, error,success  } = useStoreSelector((state) => state.register);
 
   const [form, setForm] = useState({
-    username: "",
     user_email: "",
     user_pass: "",
   });
 
-  useEffect(() => {}, [dispatch, dataUser]);
-
   const [passwordCheck, setPasswordCheck] = useState("");
   const [isPasswordFilled, setIsPasswordFilled] = useState(false);
-  const [registerError, setRegisterError] = useState<string | null>(null);
 
   const passwordsMatch = form.user_pass === passwordCheck;
-  
+
   useEffect(() => {
-    if (form.user_pass) {
-      setIsPasswordFilled(true);
-    } else {
-      setIsPasswordFilled(false);
-    }
+   setIsPasswordFilled(!!form.user_pass);
   }, [form.user_pass]);
 
   useEffect(() => {
-    if (error) {
-      setRegisterError("Registration failed. Please try again.");
+    if (success) {
+      navigate("/login");
     }
-  }, [error]);
+  }, [success, navigate]);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement>) => {
-    setForm((form) => {
-      return {
-        ...form,
-        [e.target.name]: e.target.value,
-      };
-    });
+    setForm((form) => ({
+      ...form,
+      [e.target.name]: e.target.value,
+    }));
   };
+
+  useEffect(() => {
+    dispatch(UserInputActions.resetState());
+  }, [dispatch]);
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
+    if (!passwordsMatch) return; 
     dispatch(UserInputActions.userInputThunk(form));
-    navigate("/login");
   };
 
   return {
@@ -60,6 +54,6 @@ export const UseRegiter = () => {
     passwordsMatch,
     isLoading,
     isPasswordFilled,
-    registerError,
+    error,
   };
 };

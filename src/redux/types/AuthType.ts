@@ -6,5 +6,5 @@ export interface IErrorResponse {
 }
 
 export interface IAuthResponse extends IBasicResponse {
-  data: { token: string; id: string }[];
+  data: { token: string; id: string; role: string }[];
 }

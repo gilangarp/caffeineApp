@@ -1,13 +1,25 @@
-import { Navigate, To } from "react-router-dom";
-import { useStoreSelector } from "./redux/hook";
-
+import React from 'react';
+import { Navigate } from 'react-router-dom';
+import { useStoreSelector } from './redux/hook';
+/* import { jwtDecode } from 'jwt-decode'
+ */
 interface PrivateRouteProps {
-  children: JSX.Element;
-  to: To;
+  children: React.ReactNode;
+  to: string;
+  requiredRoles: string[];
 }
 
-export const PrivateRoute = ({ children, to }: PrivateRouteProps) => {
-  const { token } = useStoreSelector((state) => state.auth);
-  if (!token) return <Navigate to={to} replace />;
+
+export const PrivateRoute = ({ children, to , requiredRoles }: PrivateRouteProps) => {
+  const { token , role } = useStoreSelector((state) => state.auth);
+
+  if (!token) {
+    return <Navigate to={to} replace />;
+  }  
+
+  if (!role || !requiredRoles.includes(role)) {
+    return <Navigate to="/unauthorized" replace />;
+  }
+
   return <>{children}</>;
 };

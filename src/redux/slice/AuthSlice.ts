@@ -3,6 +3,7 @@ import { loginThunk } from "../actions/AuthActions";
 
 export interface IAuthState {
   token: string | null;
+  role: string | null;
   id: string | null;
   isLoading: boolean;
   isRejected: boolean;
@@ -12,6 +13,7 @@ export interface IAuthState {
 
 const initialState: IAuthState = {
   token: null,
+  role: null,
   id: null,
   isLoading: false,
   isRejected: false,
@@ -26,11 +28,17 @@ const authSlice = createSlice({
     setToken: (state, action: PayloadAction<{ token: string }>) => {
       state.token = action.payload.token;
     },
+    setRole: (state, action: PayloadAction<{ role: string }>) => {
+      state.role = action.payload.role;
+    },
     setId: (state, action: PayloadAction<{ id: string }>) => {
       state.id = action.payload.id;
     },
     removeToken: (state) => {
       state.token = null;
+    },
+    removeRole: (state) => {
+      state.role = null;
     },
     removeId: (state) => {
       state.id = null;
@@ -38,6 +46,7 @@ const authSlice = createSlice({
     logout: (state) => {
       state.token = null;
       state.id = null;
+      state.role = null;
       state.isLoading = false;
       state.isRejected = false;
       state.isFulfilled = false;
@@ -63,6 +72,7 @@ const authSlice = createSlice({
       })
       .addCase(loginThunk.fulfilled, (state, { payload }) => {
         state.token = payload.token;
+        state.role = payload.role;
         state.id = payload.id;
         state.isLoading = false;
         state.isFulfilled = true;

@@ -11,13 +11,15 @@ import { ProfilePage } from "./app/profile/ProfilePage";
 import { PrivateRoute } from "./PrivateRoute";
 import { RegisterPage } from "./app/register/RegisterPage";
 import { DetailHistoryOrderPage } from "./app/detail-history-order/DetailHistoryOrderPage";
+import { ErrorPage } from "./app/Error/ErrorPage";
+import { UnauthorizedPage } from "./app/Error/UnauthorizedPage";
 
 export const Router = createBrowserRouter(
   [
     {
       path: "/",
       element: <UserLayout />,
-      errorElement: <h1>Error</h1>,
+      errorElement: <ErrorPage />,
       children: [
         {
           path: "",
@@ -30,7 +32,7 @@ export const Router = createBrowserRouter(
         {
           path: "/dashboard",
           element: (
-            <PrivateRoute to={"/login"}>
+            <PrivateRoute to={"/login"} requiredRoles={['admin']}>
               <DashboardPage />
             </PrivateRoute>
           ),
@@ -41,16 +43,20 @@ export const Router = createBrowserRouter(
         },
         {
           path: "/checkout",
-          element: <CheckoutPage />,
+          element: (
+            <PrivateRoute to={"/login"} requiredRoles={['user']}>
+              <CheckoutPage />
+            </PrivateRoute>
+          ),
         },
         {
-          path: "history-order",
+          path: "/history-order",
           element: <HistoryOrderPage />,
         },
         {
           path: "/profile",
           element: (
-            <PrivateRoute to={"/login"}>
+            <PrivateRoute to={"/login"} requiredRoles={['user']}>
               <ProfilePage />
             </PrivateRoute>
           ),
@@ -58,7 +64,7 @@ export const Router = createBrowserRouter(
         {
           path: "/detail-order",
           element: (
-            <PrivateRoute to={"/login"}>
+            <PrivateRoute to={"/login"} requiredRoles={['user']}>
               <HistoryOrderPage />
             </PrivateRoute>
           ),
@@ -66,7 +72,7 @@ export const Router = createBrowserRouter(
         {
           path: "/order/:id",
           element: (
-            <PrivateRoute to={"/login"}>
+            <PrivateRoute to={"/login"} requiredRoles={['user']}>
               <DetailHistoryOrderPage />
             </PrivateRoute>
           ),
@@ -80,6 +86,10 @@ export const Router = createBrowserRouter(
     {
       path: "/register",
       element: <RegisterPage />,
+    },
+    {
+      path: "/unauthorized",
+      element: <UnauthorizedPage />,
     },
   ],
   {

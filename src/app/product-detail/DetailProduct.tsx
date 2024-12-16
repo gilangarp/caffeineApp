@@ -6,6 +6,7 @@ import { SizeInput } from "../../components/input/SizeInput";
 import { ImageDisplay } from "./ImageDisplay";
 import { ProductInfo } from "./ProductInfo";
 import { useProductDetail } from "./UseDetailProoduct";
+import AddShoppingCartIcon from "@mui/icons-material/AddShoppingCart";
 
 export const DetailProduct = () => {
   const {
@@ -27,15 +28,16 @@ export const DetailProduct = () => {
   } = useProductDetail();
 
   return (
-    <div>
-      <div className="w-full grid md:grid-cols-2 gap-4">
-        <MessageModal message={message} onClose={closeMessage} />
-        <ImageDisplay
-          currentImage={currentImage}
-          images={imagesArray}
-          onImageClick={handleImageClick}
-        />
-        <div className="grid py-5 gap-3">
+    <div className="w-full grid gap-10 lg:grid-cols-2">
+        <div className="">
+          <MessageModal message={message} onClose={closeMessage} />
+          <ImageDisplay
+            currentImage={currentImage}
+            images={imagesArray}
+            onImageClick={handleImageClick}
+          />
+        </div>
+        <div className="grid h-fit gap-5">
           <ProductInfo
             product_name={
               productDetail.length > 0
@@ -59,7 +61,7 @@ export const DetailProduct = () => {
             }
             rating={
               productDetail.length > 0
-                ? productDetail[0].product.rating || ""
+                ? productDetail[0].product.rating || "5"
                 : ""
             }
           />
@@ -88,12 +90,14 @@ export const DetailProduct = () => {
             <button
               onClick={handleBasketClick}
               className="rounded-xl py-2 border-2 w-full border-primary bg-transparent text-sm flex justify-center items-center gap-3 text-primary">
-              <div className="w-6 h-auto">Shopingcard</div>
+              <div className="w-6 h-auto">
+                {" "}
+                <AddShoppingCartIcon />{" "}
+              </div>
               Add to cart
             </button>
           </div>
         </div>
-      </div>
     </div>
   );
 };

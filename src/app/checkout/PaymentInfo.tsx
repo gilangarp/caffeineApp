@@ -20,7 +20,7 @@ export const PaymentInfo = () => {
   } = UseCheckoutTotal();
 
   return (
-    <div className="grid gap-10">
+    <div className="grid gap-10 h-fit">
       <div>
         <h1 className="text-xl text-black font-jakarta ml-0">
           Payment Info & Delivery

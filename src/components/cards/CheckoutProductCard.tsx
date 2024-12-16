@@ -3,6 +3,7 @@ import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
 import { ITransactionProduct } from "../../redux/types/ProductType";
 import { productDetailCardThunk } from "../../redux/actions/ProductAction";
 import { checkoutAction } from "../../redux/slice/CheckoutSlice";
+import ClearIcon from "@mui/icons-material/Clear";
 
 interface ICheckoutProductCard {
   product: ITransactionProduct;
@@ -94,8 +95,10 @@ export default function CheckoutProductCard({
                 onClick={() =>
                   dispatch(checkoutAction.removeProduct(productIndex))
                 }
-                className="border-2 border-red-500 rounded-full flex items-center justify-center">
-                <div className="w-6 h-6 text-red-500">hapus</div>
+                className="border-2 w-6 h-6 border-red-500 rounded-full flex items-center justify-center">
+                <div className=" text-red-500 flex items-center justify-center">
+                  <ClearIcon fontSize="small"/>
+                </div>
               </button>
             </div>
           </div>

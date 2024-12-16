@@ -20,7 +20,7 @@ import { historyOrderDetailReducer } from "./slice/HistoryOrderDetailSlice";
 const authPersistConfig: PersistConfig<authState> = {
   key: "auth-token",
   storage,
-  whitelist: ["token", "id"],
+  whitelist: ["token", "id", "role"],
 };
 const persistedAuthReducer = persistReducer(authPersistConfig, authReducer);
 

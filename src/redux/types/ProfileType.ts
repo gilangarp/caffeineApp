@@ -11,6 +11,18 @@ export interface IProfileBody {
   address?: string;
 }
 
+export interface IProfileInputBody {
+  id: string;
+  profile_image?: File | null;  
+  username?: string;
+  full_name?: string;
+  phone_number?: string;
+  user_email?: string;
+  created_at?: string;
+  address?: string;
+}
+
+
 export interface IUsersParams {
   id: string;
   token: string;

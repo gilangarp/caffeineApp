@@ -1,5 +1,5 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { IProfileBody, IProfileResponse, IUsersParams } from "../types/ProfileType";
+import { IProfileBody, IProfileInputBody, IProfileResponse, IUsersParams } from "../types/ProfileType";
 import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const profileThunk = createAsyncThunk<
@@ -27,10 +27,11 @@ export const profileThunk = createAsyncThunk<
 
 export const profileSettingThunk = createAsyncThunk<
   IProfileBody[],
-  IProfileBody,
+  IProfileInputBody,
   { rejectValue: { error: Error; status?: number } }
->("createUserTunk", async (params: IProfileBody, { rejectWithValue }) => {
+>("createUserThunk", async (params: IProfileInputBody, { rejectWithValue }) => {
   try {
+    console.log("Debug - profile_image:", params.profile_image);
     const url = `${import.meta.env.VITE_REACT_APP_API_URL}/profile/setting/${params.id}`;
     const result: AxiosResponse<IProfileResponse> = await axios.patch(url, params,{
       headers: {

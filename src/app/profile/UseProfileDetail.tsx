@@ -7,7 +7,7 @@ export const UseProfileDetail = () => {
   const { isLoading } = useStoreSelector((state) => state.profile);
 
   const [formData, setFormData] = useState({
-    profile: "",
+    profile_image: null as File | null,
   });
 
   const [imagePreview, setImagePreview] = useState<string | null>(null);
@@ -25,10 +25,12 @@ export const UseProfileDetail = () => {
     if (file) {
       const reader = new FileReader();
       reader.onloadend = () => {
-        setImagePreview(reader.result as string);
+        const base64Image = reader.result as string;
+        setImagePreview(base64Image);
+
         setFormData((prevData) => ({
           ...prevData,
-          avatar: reader.result as string,
+          profile_image: file,
         }));
       };
       reader.readAsDataURL(file);
@@ -45,7 +47,6 @@ export const UseProfileDetail = () => {
       dispatch(profileSettingActions.profileSettingThunk(formDataToSend));
     }
   };
-  
 
   return {
     imagePreview,

@@ -8,6 +8,9 @@ export const UseNavbar = () => {
   const [showSearchInput, setShowSearchInput] = useState(false);
   const [searchValue, setSearchValue] = useState("");
 
+  const { checkout } = useStoreSelector((state) => state.checkout);
+  const cartItemCount = checkout[0].count;
+
   const handleSearchClick = () => {
     setShowSearchInput(!showSearchInput);
   };
@@ -38,5 +41,5 @@ export const UseNavbar = () => {
     navigate("/login");  
   };
 
-  return { location,handleSearchClick ,showSearchInput,searchValue,handleSearchSubmit, isLoggedIn,handleSearchChange, logout , isOpen,setIsOpen };
+  return { location,handleSearchClick ,showSearchInput,searchValue,handleSearchSubmit, isLoggedIn,handleSearchChange, logout , isOpen,setIsOpen,cartItemCount };
 };

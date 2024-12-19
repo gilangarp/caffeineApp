@@ -57,6 +57,10 @@ export interface ITransactionProduct {
   ice_hot?: number;
   delivery_id?: string;
   payment_id?: string;
+  img_product?: string;
+  product_name?: string;
+  product_price?: number;
+  discount_price?: number;
 }
 
 export interface IProductDetailResponse extends IBasicResponse {

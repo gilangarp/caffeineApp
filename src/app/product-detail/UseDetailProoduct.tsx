@@ -67,25 +67,43 @@ export const useProductDetail = () => {
         setMessage({
           type: "error",
           header: "Error",
-          body: "Please select both size and hot/ice option before buying.",
+          body: "Please select both size and hot/ice option before adding to the basket.",
         });
       } else {
+        const defaultProduct = {
+          id: productDetail[0].product.id,
+          img_product: productDetail[0].images.img_1,
+          product_name: productDetail[0].product.product_name,
+          discount_price: productDetail[0].product.product_price,
+          product_price: productDetail[0].product.product_price,
+          count,
+          size_id: selectedSize,
+          ice_hot: selectedOption,
+          delivery_id: undefined,
+          payment_id: undefined,
+        };
+        dispatch(checkoutAction.checkoutProduct(defaultProduct));
         setMessage({
           type: "success",
           header: "Success",
-          body: `Successfully added ${productDetail[0].product.product_name} to the basket`,
+          body: `Successfully added ${productDetail[0].product.product_name} to the basket.`,
         });
       }
     };
-  
+    
     const closeMessage = () => {
       setMessage(null);
     };
+    
   
     const handleBuy = () => {
       if (selectedSize !== undefined && selectedOption !== undefined) {
         const defaultProduct: ITransactionProduct = {
           id: productDetail[0].product.id,
+          img_product: productDetail[0].images.img_1,
+          product_name: productDetail[0].product.product_name,
+          discount_price: productDetail[0].product.product_price,
+          product_price: productDetail[0].product.product_price,
           count,
           size_id: selectedSize,
           ice_hot: selectedOption,

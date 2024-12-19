@@ -1,23 +1,11 @@
 import { useNavigate } from "react-router-dom";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
-import { useCallback, useEffect } from "react";
-import { productDetailCardThunk } from "../../redux/actions/ProductAction";
+import { useStoreSelector } from "../../redux/hook";
+import { useCallback } from "react";
 
 export const UseCheckOutOrder = () => {
-  const dispatch = useStoreDispatch();
   const { checkout, productInfo } = useStoreSelector((state) => state.checkout);
   const navigate = useNavigate();
-
-  useEffect(() => {
-    if (checkout.length > 0) {
-      checkout.forEach((item) => {
-        if (item?.id) {
-          dispatch(productDetailCardThunk({ id: item.id }));
-        }
-      });
-    }
-  }, [checkout, dispatch]);
-
+  
   const handleClick = useCallback(() => {
     navigate("/product");
   }, [navigate]);

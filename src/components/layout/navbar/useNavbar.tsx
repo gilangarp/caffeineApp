@@ -9,7 +9,7 @@ export const UseNavbar = () => {
   const [searchValue, setSearchValue] = useState("");
 
   const { checkout } = useStoreSelector((state) => state.checkout);
-  const cartItemCount = checkout[0].count;
+  const cartItemCount = checkout.length;
 
   const handleSearchClick = () => {
     setShowSearchInput(!showSearchInput);

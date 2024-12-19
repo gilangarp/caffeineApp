@@ -15,6 +15,7 @@ export const LoginForm = () => {
       <div className="grid gap-3">
         <EmailInput
           onChange={onChangeHandler}
+          name="user_email"
           value={form.user_email}
           placeholder="Enter your email"
         />
@@ -31,10 +32,18 @@ export const LoginForm = () => {
 
       {/* button login */}
       <button
-        className="bg-primary font-medium text-base flex items-center justify-center py-2 rounded-lg"
         type="submit"
+        className={`bg-primary font-medium text-base flex items-center justify-center py-2 rounded-lg ${
+          isLoading ? "opacity-50 cursor-not-allowed" : ""
+        }`}
         disabled={isLoading}>
-        {isLoading ? "loading..." : "Login"}
+        {isLoading ? (
+          <span className="flex items-center gap-2">
+            <span className="loader-spinner"></span> Login...
+          </span>
+        ) : (
+          "Login"
+        )}
       </button>
     </form>
   );

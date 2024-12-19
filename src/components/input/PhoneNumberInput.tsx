@@ -1,27 +1,34 @@
-import MailIcon from "@mui/icons-material/Mail";
 import { Input } from "./Input";
+import PhoneIcon from "@mui/icons-material/Phone";
 
-interface EmailInputProps {
+interface PhoneNumberInputProps {
   value: string;
   onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
   placeholder: string;
-  name:string;
+  name: string;
 }
 
-export const EmailInput = ({ value, onChange , placeholder="Enter your email",name}: EmailInputProps) => {
+export const PhoneNumberInput = ({
+  value,
+  onChange,
+  placeholder = "Enter your phone number",
+  name,
+}: PhoneNumberInputProps) => {
   return (
     <main className="grid gap-3">
-      <h1 className="font-semibold font text-base text-[#0B132A]">Email</h1>
+      <h1 className="font-semibold font-jakarta text-base text-[#0B132A]">
+        Phone Number
+      </h1>
       <div className="border rounded-lg font-jakarta flex items-center justify-center py-1 px-2 gap-2">
         <div className="w-6 h-auto text-text">
-          <MailIcon />
+          <PhoneIcon />
         </div>
         <Input
           input={{
-            type: "email",
+            type: "tel",
             name: name,
             placeholder: placeholder,
-            autocomplete: "email",
+            autocomplete: "phone",
             value: value,
             onChange: onChange,
           }}

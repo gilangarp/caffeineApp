@@ -5,9 +5,10 @@ interface FullNameInputProps {
     value: string;
     onChange: (event: React.ChangeEvent<HTMLInputElement>) => void;
     placeholder: string
+    name: string
   }
   
-  export const FullNameInput = ({ value, onChange, placeholder="Enter your full name" }: FullNameInputProps) => {
+  export const FullNameInput = ({ value, onChange, placeholder="Enter your full name" ,name}: FullNameInputProps) => {
     return (
       <main className="grid gap-3">
         <h1 className="font-semibold font-jakarta text-base text-[#0B132A]">Full Name</h1>
@@ -18,7 +19,7 @@ interface FullNameInputProps {
           <Input
             input={{
               type: "text",
-              name: "user_fullname",
+              name: name,
               placeholder: placeholder,
               autocomplete: "name",
               value: value,

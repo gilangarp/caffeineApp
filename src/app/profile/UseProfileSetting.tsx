@@ -2,6 +2,7 @@ import { ChangeEvent, useEffect, useState } from "react";
 import { profileActions } from "../../redux/slice/ProfileSlice";
 import { profileSettingActions } from "../../redux/slice/ProfileSettingSlice";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { userSettingThunk } from "../../redux/actions/UserActions";
 
 export const UseProfileSetting = () => {
   const dispatch = useStoreDispatch();
@@ -11,9 +12,10 @@ export const UseProfileSetting = () => {
 
   const [formData, setFormData] = useState({
     full_name: "",
-    user_email: "",
     phone_number: "",
     address: "",
+    user_email: "",
+    user_pass: "",
   });
 
   const onChangeHandler = (e: ChangeEvent<HTMLInputElement>) => {
@@ -27,20 +29,40 @@ export const UseProfileSetting = () => {
   const onSubmitHandler = async (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
 
-    try {
-      if (authState.id && authState.token && authState.id) {
+    if (authState.id && authState.token) {
+      try {
+        const { full_name, phone_number, address, user_email, user_pass } =
+          formData;
+
         const formDataToSend = {
-          ...formData,
+          full_name,
+          phone_number,
+          address,
           id: authState.id,
         };
 
-        await dispatch(profileSettingActions.profileSettingThunk(formDataToSend));
+        if (full_name || phone_number || address) {
+          await dispatch(
+            profileSettingActions.profileSettingThunk(formDataToSend)
+          );
+        }
+
+        const formDataPasswordToSend = {
+          user_email,
+          user_pass,
+          id: authState.id,
+        };
+
+        if (user_email || user_pass) {
+          await dispatch(userSettingThunk(formDataPasswordToSend));
+        }
 
         setFormData({
           full_name: "",
-          user_email: "",
           phone_number: "",
           address: "",
+          user_email: "",
+          user_pass: "",
         });
 
         dispatch(
@@ -49,9 +71,9 @@ export const UseProfileSetting = () => {
             token: authState.token,
           })
         );
+      } catch (error) {
+        console.error("Error submitting form:", error);
       }
-    } catch (error) {
-      console.error("Error submitting form:", error);
     }
   };
 
@@ -66,5 +88,11 @@ export const UseProfileSetting = () => {
     }
   }, [dispatch, authState.id, authState.token]);
 
-  return {onSubmitHandler,dataProfile,formData,onChangeHandler,isLoading} 
+  return {
+    onSubmitHandler,
+    dataProfile,
+    formData,
+    onChangeHandler,
+    isLoading,
+  };
 };

@@ -29,6 +29,7 @@ export const PaymentInfo = () => {
       <form className="w-full lg:w-3/6 grid gap-5" onSubmit={onSubmitHandler}>
         <EmailInput
           onChange={handleEmailChange}
+          name="user_email"
           value={email}
           placeholder={
             dataProfile.length > 0
@@ -38,6 +39,7 @@ export const PaymentInfo = () => {
         />
         <FullNameInput
           onChange={handleFullNameChange}
+          name="user_fullname"
           value={fullName}
           placeholder={
             dataProfile.length > 0

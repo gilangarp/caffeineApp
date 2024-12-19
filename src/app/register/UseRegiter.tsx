@@ -6,21 +6,14 @@ import { useNavigate } from "react-router-dom";
 export const UseRegiter = () => {
   const dispatch = useStoreDispatch();
   const navigate = useNavigate();
-  const { isLoading, error,success  } = useStoreSelector((state) => state.register);
+  const { isLoading, error, success } = useStoreSelector(
+    (state) => state.register
+  );
 
   const [form, setForm] = useState({
     user_email: "",
     user_pass: "",
   });
-
-  const [passwordCheck, setPasswordCheck] = useState("");
-  const [isPasswordFilled, setIsPasswordFilled] = useState(false);
-
-  const passwordsMatch = form.user_pass === passwordCheck;
-
-  useEffect(() => {
-   setIsPasswordFilled(!!form.user_pass);
-  }, [form.user_pass]);
 
   useEffect(() => {
     if (success) {
@@ -41,7 +34,6 @@ export const UseRegiter = () => {
 
   const handleSubmit = (e: React.FormEvent<HTMLFormElement>) => {
     e.preventDefault();
-    if (!passwordsMatch) return; 
     dispatch(UserInputActions.userInputThunk(form));
   };
 
@@ -49,11 +41,7 @@ export const UseRegiter = () => {
     handleSubmit,
     form,
     handleChange,
-    passwordCheck,
-    setPasswordCheck,
-    passwordsMatch,
     isLoading,
-    isPasswordFilled,
     error,
   };
 };

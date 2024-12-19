@@ -18,7 +18,7 @@ interface AddressInputProps {
           <Input
             input={{
               type: "text",
-              name: "user_address",
+              name: "address",
               placeholder: placeholder,
               autocomplete: "street-address",
               value: value,

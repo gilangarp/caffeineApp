@@ -3,4 +3,5 @@ export interface IPagination {
     nextLink: string | null;
     currentPage: number;
     totalPages: number;
+    totalData?: number
   }

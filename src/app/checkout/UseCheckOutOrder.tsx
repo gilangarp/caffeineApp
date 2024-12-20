@@ -3,7 +3,7 @@ import { useStoreSelector } from "../../redux/hook";
 import { useCallback } from "react";
 
 export const UseCheckOutOrder = () => {
-  const { checkout, productInfo } = useStoreSelector((state) => state.checkout);
+  const { checkout } = useStoreSelector((state) => state.checkout);
   const navigate = useNavigate();
   
   const handleClick = useCallback(() => {
@@ -12,7 +12,7 @@ export const UseCheckOutOrder = () => {
 
   const orderTotal = checkout.reduce((sum, product) => {
     const price: string | number =
-      productInfo[0]?.discount_price || productInfo[0]?.product_price || 0;
+    checkout[0]?.discount_price || checkout[0]?.product_price || 0;
     const numericPrice = typeof price === "string" ? parseFloat(price) : price;
     return sum + numericPrice * (product.count || 0);
   }, 0);

@@ -18,41 +18,51 @@ const checkoutSlice = createSlice({
   initialState,
   reducers: {
     checkoutProduct: (state, action: PayloadAction<ITransactionProduct>) => {
-      const newCheckout = [...state.checkout];
-      const index = newCheckout.findIndex(
+      const existingProduct = state.checkout.find(
         (product) =>
           product.id === action.payload.id &&
           product.size_id === action.payload.size_id &&
-          product.ice_hot === action.payload.ice_hot &&
-          product.img_product === action.payload.img_product &&
-          product.product_name === action.payload.product_name &&
-          product.product_price === action.payload.product_price &&
-          product.discount_price === action.payload.discount_price
+          product.ice_hot === action.payload.ice_hot
       );
-      if (index > -1) {
-        const selectedCheckout = { ...newCheckout[index] };
-        selectedCheckout.count += 1;
-        newCheckout[index] = selectedCheckout;
-        state.checkout = newCheckout;
+
+      if (existingProduct) {
+        existingProduct.count += 1;
       } else {
-        newCheckout.push(action.payload);
-        state.checkout = newCheckout;
+        state.checkout.push({ ...action.payload, count: 1 });
       }
     },
-    removeProduct: (state, action: PayloadAction<number>) => {
-      const newCheckout = state.checkout.filter(
-        (_, index) => index !== action.payload
-      );
-      state.checkout = newCheckout;
-    },
-    removeAll: (state) => {
-      state.checkout = []; 
-    },
-  },
-  extraReducers: () => {
-  },
-});
 
+    removeProduct: (state, action: PayloadAction<number>) => {
+      if (action.payload >= 0 && action.payload < state.checkout.length) {
+        state.checkout.splice(action.payload, 1); 
+      }
+    },
+
+    removeAll: (state) => {
+      state.checkout = [];
+    },
+
+    decreaseProduct: (state, action: PayloadAction<ITransactionProduct>) => {
+      const existingProduct = state.checkout.find(
+        (product) =>
+          product.id === action.payload.id &&
+          product.size_id === action.payload.size_id &&
+          product.ice_hot === action.payload.ice_hot
+      );
+
+      if (existingProduct) {
+        if (existingProduct.count > 1) {
+          existingProduct.count -= 1; 
+        } else {
+          state.checkout = state.checkout.filter(
+            (product) => product !== existingProduct
+          ); 
+        }
+      }
+    },
+  },
+  extraReducers: () => {},
+});
 
 export const checkoutAction = {
   ...checkoutSlice.actions,

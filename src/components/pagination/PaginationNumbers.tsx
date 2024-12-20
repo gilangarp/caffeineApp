@@ -29,6 +29,7 @@ export default function PaginationNumbers({
   const pageNumbers: JSX.Element[] = [];
   const startPage = Math.max(1, currentPage - 1);
   const endPage = Math.min(totalPages, startPage + 3);
+  console.log(totalPages)
 
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(renderPaginationNumber(i));

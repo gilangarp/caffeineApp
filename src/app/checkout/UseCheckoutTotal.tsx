@@ -15,43 +15,53 @@ export const UseCheckoutTotal = () => {
   const [fullName, setFullName] = useState("");
   const [address, setAddress] = useState("");
   const [selectedDelivery, setSelectedDelivery] = useState<number | 1>(1);
-  
+
   const handleOpenModal = () => setModalOpen(true);
   const handleCloseModal = () => setModalOpen(false);
-  
+
   const dispatch = useStoreDispatch();
   const { checkout } = useStoreSelector((state) => state.checkout);
-  const {dataProfile} = useStoreSelector((state) => state.profile);
-  const { id , token } = useStoreSelector((state) => state.auth);
+  const { dataProfile } = useStoreSelector((state) => state.profile);
+  const { id, token } = useStoreSelector((state) => state.auth);
   const { orderTotal, tax, total } = UseCheckOutOrder();
 
   useEffect(() => {
-      if (id && token) {
-        dispatch(
-          profileActions.profileThunk({
-            id: id,
-            token: token,
-          })
-        );
-      }
-    }, [dispatch, id, token]);
+    if (id && token) {
+      dispatch(
+        profileActions.profileThunk({
+          id: id,
+          token: token,
+        })
+      );
+    }
+  }, [dispatch, id, token]);
 
-  const emailValue = dataProfile?.[0]?.user_email === "Enter Your Email" ? "" : dataProfile?.[0]?.user_email;
-  const fullNameValue = dataProfile?.[0]?.full_name === "Enter Your Full Name" ? "" : dataProfile?.[0]?.full_name;
-  const addressValue = dataProfile?.[0]?.address === "Enter Your Address" ? "" : dataProfile?.[0]?.address;
-  
+  const emailValue =
+    dataProfile?.[0]?.user_email === "Enter Your Email"
+      ? ""
+      : dataProfile?.[0]?.user_email;
+  const fullNameValue =
+    dataProfile?.[0]?.full_name === "Enter Your Full Name"
+      ? ""
+      : dataProfile?.[0]?.full_name;
+  const addressValue =
+    dataProfile?.[0]?.address === "Enter Your Address"
+      ? ""
+      : dataProfile?.[0]?.address;
+
   const onSubmitHandler = async (event: React.FormEvent) => {
     event.preventDefault();
     await handleConfirmCheckout();
   };
 
   const handleConfirmCheckout = async () => {
-
     if (!emailValue || !fullNameValue || !addressValue) {
-      alert("Please fill in all the required fields (Email, Full Name, Address).");
+      alert(
+        "Please fill in all the required fields (Email, Full Name, Address)."
+      );
       return;
     }
-  
+
     const formData = {
       user_id: id || "",
       payments_id: 1,
@@ -60,15 +70,14 @@ export const UseCheckoutTotal = () => {
       subtotal: orderTotal,
       tax: tax,
       grand_total: total,
-      products: [
-        {
-          product_id: checkout[0].id || "", 
-          size_id: checkout[0].size_id || "",
-          fd_option_id: checkout[0].ice_hot || 0,
-        },
-      ],
-    }; 
-    dispatch(transactionThunk(formData));  
+      products: checkout.map((item) => ({
+        product_id: item.id || "",
+        size_id: item.size_id || "",
+        fd_option_id: item.ice_hot || 0,
+      })),
+    };
+    
+    dispatch(transactionThunk(formData));
     setLoading(true);
     setLoading(false);
     setSuccess(true);
@@ -88,21 +97,21 @@ export const UseCheckoutTotal = () => {
     setReviewModalOpen(false);
   };
 
-    const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setEmail(event.target.value);
-    };
-  
-    const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setFullName(event.target.value);
-    };
-  
-    const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-      setAddress(event.target.value);
-    };
-  
-    const handleDeliveryChange = (deliveryOption: number) => {
-      setSelectedDelivery(deliveryOption);
-    };
+  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setEmail(event.target.value);
+  };
+
+  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setFullName(event.target.value);
+  };
+
+  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
+    setAddress(event.target.value);
+  };
+
+  const handleDeliveryChange = (deliveryOption: number) => {
+    setSelectedDelivery(deliveryOption);
+  };
 
   return {
     isModalOpen,
@@ -124,6 +133,6 @@ export const UseCheckoutTotal = () => {
     handleAddressChange,
     handleDeliveryChange,
     onSubmitHandler,
-    dataProfile
+    dataProfile,
   };
 };

@@ -13,28 +13,18 @@ import { IOrderDetail } from "../types/TransactionType";
 
 export const historyOrderThunk = createAsyncThunk<
   { history: IHistoryOrderBody[]; pagination: IPagination },
-  {
-    filters: IFilterHistoryOrder;
-    currentPage: number;
-    historyPerPage: number;
-    uuid: string;
-  },
+  { filters: IFilterHistoryOrder; uuid: string; currentPage: number; historyPerPage: number },
   { rejectValue: { error: Error; status?: number } }
 >(
   "historyOrder/fetchHistory",
-  async (
-    { filters, currentPage, historyPerPage, uuid },
-    { rejectWithValue }
-  ) => {
+  async ({ filters = {}, uuid, currentPage, historyPerPage }, { rejectWithValue }) => {
     try {
-      const url = `${
-        import.meta.env.VITE_REACT_APP_API_URL
-      }/transaction/history-order/${uuid}`;
-
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/transaction/history-order/${uuid}`;
       const result: AxiosResponse<IHistoryResponse> = await axios.get(url, {
         params: { ...filters, page: currentPage, limit: historyPerPage },
       });
-      return {
+
+      const dataToCache =  {
         history: result.data.data,
         pagination: {
           totalData: result.data.meta?.totalData || 0,
@@ -44,6 +34,7 @@ export const historyOrderThunk = createAsyncThunk<
           currentPage,
         },
       };
+      return dataToCache;
     } catch (error) {
       if (error instanceof AxiosError) {
         return rejectWithValue({
@@ -53,8 +44,8 @@ export const historyOrderThunk = createAsyncThunk<
       }
       return rejectWithValue({ error: new Error("An unknown error occurred") });
     }
-  }
-);
+  });
+
 
 export const historyOrderDetailThunk = createAsyncThunk<
   IOrderDetail[],

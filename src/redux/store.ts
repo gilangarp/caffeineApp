@@ -16,6 +16,8 @@ import { profileReducer } from "./slice/ProfileSlice";
 import { profileSettingReducer } from "./slice/ProfileSettingSlice";
 import { UserInputReducer } from "./slice/UserInputSlice";
 import { historyOrderDetailReducer } from "./slice/HistoryOrderDetailSlice";
+import { transactionReducer } from "./slice/transactionSlice";
+import { paymentInfoReducer } from "./slice/paymentInfoSlice";
 
 const authPersistConfig: PersistConfig<authState> = {
   key: "auth-token",
@@ -29,14 +31,19 @@ const productPersistConfig: PersistConfig<productState> = {
   storage,
   whitelist: ["id", "uuid"],
 };
-const persistedProductReducer = persistReducer( productPersistConfig, productReducer);
+const persistedProductReducer = persistReducer(
+  productPersistConfig,
+  productReducer
+);
 
 const checkoutPersistConfig: PersistConfig<checkoutState> = {
   key: "checkout",
-  storage
+  storage,
 };
-const persistedCheckoutReducer = persistReducer(checkoutPersistConfig , checkoutReducer)
-
+const persistedCheckoutReducer = persistReducer(
+  checkoutPersistConfig,
+  checkoutReducer
+);
 
 export const store = configureStore({
   reducer: {
@@ -52,6 +59,8 @@ export const store = configureStore({
     historyOrder: historyOrderReducer,
     register: UserInputReducer,
     detailHistory: historyOrderDetailReducer,
+    transaction: transactionReducer,
+    paymentInfo: paymentInfoReducer,
   },
   middleware: (getDefaultMiddleware) =>
     getDefaultMiddleware({

@@ -20,7 +20,7 @@ export interface IHistoryResponse extends IBasicResponse {
 export interface IOrderInfo {
   full_name: string;
   order_number: string;
-  created_at:string;
+  created_at: string;
   phone_number: string;
   address: string;
   payment_method: string;
@@ -62,6 +62,9 @@ export interface ITransactionBody {
 
 export interface ITransactionWithDetailsBody {
   user_id: string;
+  full_name: string;
+  user_email: string;
+  address: string;
   payments_id: number;
   shipping_id: number;
   status_id: number;
@@ -75,10 +78,12 @@ export interface ITransactionWithDetailsBody {
   }[];
 }
 
-export interface IDataTransaction extends ITransactionBody {
+export interface IDataTransaction {
   id: string;
-  created_date: string;
-  updated_at?: string;
+  token: string;
+  redirect_url: string;
+  payment_method: string;
+  status: string;
 }
 
 export interface ITransactionResponse extends IBasicResponse {

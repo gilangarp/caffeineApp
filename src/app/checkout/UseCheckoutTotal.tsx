@@ -1,74 +1,62 @@
 import { useEffect, useState } from "react";
-import { testimonialInputThunk } from "../../redux/actions/TestimonialAction";
 import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
 import { UseCheckOutOrder } from "./UseCheckOutOrder";
 import { transactionThunk } from "../../redux/actions/TransactionAction";
 import { profileActions } from "../../redux/slice/ProfileSlice";
+import { paymentInfoActions } from "../../redux/slice/paymentInfoSlice";
+import { useSnap } from "../../hooks/useSnap";
 
 export const UseCheckoutTotal = () => {
-  const [isModalOpen, setModalOpen] = useState<boolean>(false);
-  const [isLoading, setLoading] = useState<boolean>(false);
-  const [isSuccess, setSuccess] = useState<boolean>(false);
-  const [isMessageModalOpen, setMessageModalOpen] = useState<boolean>(false);
-  const [isReviewModalOpen, setReviewModalOpen] = useState<boolean>(false);
-  const [email, setEmail] = useState("");
-  const [fullName, setFullName] = useState("");
-  const [address, setAddress] = useState("");
-  const [selectedDelivery, setSelectedDelivery] = useState<number | 1>(1);
+  const [isConfirmationModalOpen, setIsConfirmationModalOpen] = useState(false);
+  const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
+  const [isLoading, setIsLoading] = useState(false);
 
-  const handleOpenModal = () => setModalOpen(true);
-  const handleCloseModal = () => setModalOpen(false);
-
+  const { snapEmbed } = useSnap();
   const dispatch = useStoreDispatch();
   const { checkout } = useStoreSelector((state) => state.checkout);
   const { dataProfile } = useStoreSelector((state) => state.profile);
   const { id, token } = useStoreSelector((state) => state.auth);
   const { orderTotal, tax, total } = UseCheckOutOrder();
 
+  const {
+    selected_delivery,
+    selected_payment,
+    user_address,
+    user_email,
+    user_fullname,
+  } = useStoreSelector((state) => state.paymentInfo);
+
   useEffect(() => {
     if (id && token) {
-      dispatch(
-        profileActions.profileThunk({
-          id: id,
-          token: token,
-        })
-      );
+      dispatch(profileActions.profileThunk({ id, token }));
     }
   }, [dispatch, id, token]);
 
-  const emailValue =
-    dataProfile?.[0]?.user_email === "Enter Your Email"
-      ? ""
-      : dataProfile?.[0]?.user_email;
-  const fullNameValue =
-    dataProfile?.[0]?.full_name === "Enter Your Full Name"
-      ? ""
-      : dataProfile?.[0]?.full_name;
-  const addressValue =
-    dataProfile?.[0]?.address === "Enter Your Address"
-      ? ""
-      : dataProfile?.[0]?.address;
+  const handleCheckoutClick = () => {
+    setIsConfirmationModalOpen(true);
+  };
 
-  const onSubmitHandler = async (event: React.FormEvent) => {
-    event.preventDefault();
-    await handleConfirmCheckout();
+  const handleConfirm = () => {
+    setIsConfirmationModalOpen(false);
+    handleConfirmCheckout();
   };
 
   const handleConfirmCheckout = async () => {
-    if (!emailValue || !fullNameValue || !addressValue) {
-      alert(
-        "Please fill in all the required fields (Email, Full Name, Address)."
-      );
+    if (!user_fullname || !user_email || !user_address) {
+      setIsWarningModalOpen(true);
       return;
     }
 
-    const formData = {
+    const payload = {
       user_id: id || "",
-      payments_id: 1,
-      shipping_id: selectedDelivery,
+      full_name: user_fullname,
+      address: user_address,
+      user_email: user_email,
+      payments_id: selected_payment,
+      shipping_id: selected_delivery,
       status_id: 3,
       subtotal: orderTotal,
-      tax: tax,
+      tax,
       grand_total: total,
       products: checkout.map((item) => ({
         product_id: item.id || "",
@@ -76,63 +64,78 @@ export const UseCheckoutTotal = () => {
         fd_option_id: item.ice_hot || 0,
       })),
     };
-    
-    dispatch(transactionThunk(formData));
-    setLoading(true);
-    setLoading(false);
-    setSuccess(true);
-    setModalOpen(false);
-    setMessageModalOpen(true);
+
+    try {
+      setIsLoading(true);
+      const action = await dispatch(transactionThunk(payload)).unwrap();
+      const transactionToken = action[0]?.token;
+      if (action[0].payment_method == "Midtrans") {
+        snapEmbed(transactionToken, "snap-container", {
+          onSuccess: function (result) {
+            console.log("Transaction successful", result);
+            setIsLoading(false);
+          },
+          onPending: function () {
+            console.log("Transaction is pending");
+            setIsLoading(false);
+          },
+          onClose: function () {
+            console.log("Snap widget closed");
+            setIsLoading(false);
+          },
+        });
+      } else {
+        console.log(
+          "Transaction token is invalid or payment method is not Midtrans."
+        );
+      }
+    } catch (error) {
+      console.error("Transaction error: ", error);
+    }
   };
 
-  const handleCloseMessageModal = () => {
-    setMessageModalOpen(false);
-    setReviewModalOpen(true);
+  const handleEmailChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newEmail = e.target.value;
+    dispatch(paymentInfoActions.setEmail(newEmail));
   };
 
-  const handleReviewSubmit = (review: string, rating: number) => {
-    const dataReview = { comment: review, rating, id: id || "" };
-    dispatch(testimonialInputThunk(dataReview));
-    setMessageModalOpen(false);
-    setReviewModalOpen(false);
+  const handleFullNameChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newFullName = e.target.value;
+    dispatch(paymentInfoActions.setFullName(newFullName));
   };
 
-  const handleEmailChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setEmail(event.target.value);
+  const handleAddressChange = (e: React.ChangeEvent<HTMLInputElement>) => {
+    const newAddress = e.target.value;
+    dispatch(paymentInfoActions.setAddress(newAddress));
   };
 
-  const handleFullNameChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setFullName(event.target.value);
-  };
-
-  const handleAddressChange = (event: React.ChangeEvent<HTMLInputElement>) => {
-    setAddress(event.target.value);
+  const handlePaymentChange = (paymentOption: number) => {
+    dispatch(paymentInfoActions.setPayment(paymentOption));
   };
 
   const handleDeliveryChange = (deliveryOption: number) => {
-    setSelectedDelivery(deliveryOption);
+    dispatch(paymentInfoActions.setDelivery(deliveryOption));
   };
 
   return {
-    isModalOpen,
-    isLoading,
-    isSuccess,
-    isMessageModalOpen,
-    isReviewModalOpen,
-    handleOpenModal,
-    handleCloseModal,
     handleConfirmCheckout,
-    handleCloseMessageModal,
-    handleReviewSubmit,
-    email,
-    fullName,
-    address,
-    selectedDelivery,
+    user_email,
+    user_fullname,
+    user_address,
     handleEmailChange,
     handleFullNameChange,
     handleAddressChange,
     handleDeliveryChange,
-    onSubmitHandler,
+    handlePaymentChange,
+    selected_delivery,
+    selected_payment,
     dataProfile,
+    handleConfirm,
+    isWarningModalOpen,
+    setIsWarningModalOpen,
+    isConfirmationModalOpen,
+    setIsConfirmationModalOpen,
+    handleCheckoutClick,
+    isLoading,
   };
 };

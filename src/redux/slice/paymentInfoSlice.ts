@@ -5,7 +5,7 @@ interface IPaymentInfoState {
   user_fullname: string;
   user_address: string;
   selected_delivery: number;
-  selected_payment: number;
+  selected_payment: string;
 }
 
 const initialState: IPaymentInfoState = {
@@ -13,7 +13,7 @@ const initialState: IPaymentInfoState = {
   user_fullname: "",
   user_address: "",
   selected_delivery: 1,
-  selected_payment: 1,
+  selected_payment: "",
 };
 
 const paymentInfoSlice = createSlice({
@@ -32,7 +32,7 @@ const paymentInfoSlice = createSlice({
     setDelivery: (state, action: PayloadAction<number>) => {
       state.selected_delivery = action.payload;
     },
-    setPayment: (state, action: PayloadAction<number>) => {
+    setPayment: (state, action: PayloadAction<string>) => {
       state.selected_payment = action.payload;
     },
   },

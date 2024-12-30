@@ -5,7 +5,7 @@ interface Snap {
     snapToken: string,
     options: {
       embedId: string;
-      onSuccess: (result: any) => void;
+      onSuccess: (result: unknown) => void;
       onPending?: () => void;
       onClose?: () => void;
     }
@@ -20,7 +20,7 @@ declare global {
 }
 
 interface SnapEmbedAction {
-  onSuccess: (result: any) => void;
+  onSuccess: (result: unknown) => void;
   onPending: () => void;
   onClose: () => void;
 }
@@ -32,11 +32,12 @@ export const useSnap = () => {
   const [error, setError] = useState<string | null>(null);
 
   useEffect(() => {
-    const myMidtransClientKey = import.meta.env.MIDTRANS_SERVER_KEY;
+    const snapScript = "https://app.sandbox.midtrans.com/snap/snap.js";
+    const clientKey = import.meta.env.MIDTRANS_SERVER_KEY;
     const script = document.createElement("script");
 
-    script.src = "https://app.sandbox.midtrans.com/snap/snap.js";
-    script.setAttribute("data-client-key", myMidtransClientKey);
+    script.src = snapScript;
+    script.setAttribute("data-client-key", clientKey);
 
     script.onload = () => {
       if (window.snap) {
@@ -63,10 +64,6 @@ export const useSnap = () => {
     action?: SnapEmbedAction
   ) => {
     try {
-      console.log("snapToken:", snapToken);
-      console.log("embedId:", embedId);
-      console.log("action:", action);
-
       if (!snap) {
         setError("Snap is not initialized.");
         console.error("Snap is not initialized.");

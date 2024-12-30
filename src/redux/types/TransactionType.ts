@@ -65,7 +65,7 @@ export interface ITransactionWithDetailsBody {
   full_name: string;
   user_email: string;
   address: string;
-  payments_id: number;
+  payment_type: string;
   shipping_id: number;
   status_id: number;
   subtotal: number;

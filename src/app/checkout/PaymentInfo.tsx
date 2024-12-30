@@ -7,9 +7,9 @@ import { UseCheckoutTotal } from "./UseCheckoutTotal";
 
 export const PaymentInfo = () => {
   const {
-    email,
-    fullName,
-    address,
+    user_address,
+    user_email,
+    user_fullname,
     handleEmailChange,
     handleFullNameChange,
     handleAddressChange,
@@ -28,29 +28,29 @@ export const PaymentInfo = () => {
       </div>
       <div className="w-full lg:w-3/6 grid gap-5">
         <EmailInput
-          onChange={handleEmailChange} // Pass handler here
+          onChange={handleEmailChange}
           name="user_email"
-          value={email} // Bind value to email state
+          value={user_email}
           placeholder="Enter Your Email"
         />
         <FullNameInput
-          onChange={handleFullNameChange} // Pass handler here
+          onChange={handleFullNameChange}
           name="user_fullname"
-          value={fullName} // Bind value to fullName state
+          value={user_fullname}
           placeholder="Enter Your Full Name"
         />
         <AddressInput
-          onChange={handleAddressChange} // Pass handler here
-          value={address} // Bind value to address state
+          onChange={handleAddressChange}
+          value={user_address}
           placeholder="Enter Your Address"
         />
         <DeliveryInput
-          onDeliveryChange={handleDeliveryChange} // Pass handler here
-          selectedDelivery={selected_delivery} // Use selected_delivery from Redux
+          onDeliveryChange={handleDeliveryChange}
+          selectedDelivery={selected_delivery}
         />
         <PaymentInput
-          onPaymentChange={handlePaymentChange} // Pass handler here
-          selectedPayment={selected_payment} // Use selected_payment from Redux
+          onPaymentChange={handlePaymentChange}
+          selectedPayment={selected_payment}
         />
       </div>
     </div>

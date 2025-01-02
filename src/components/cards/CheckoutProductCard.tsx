@@ -68,7 +68,7 @@ export default function CheckoutProductCard({
           <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 md:grid-cols-1 h-fit">
             {product.discount_price && (
               <div className="line-through text-red-800">
-                <p>{numberToRupiah(Number(product.discount_price))}</p>
+                <p>{product.discount_price}</p>
               </div>
             )}
             <div className="pl-5 text-xl text-[#FF8906]">

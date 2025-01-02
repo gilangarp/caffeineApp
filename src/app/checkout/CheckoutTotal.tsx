@@ -1,13 +1,14 @@
 import { ConfirmationModal } from "../../components/alerts/ConfirmationAlert";
 import { UseCheckoutTotal } from "./UseCheckoutTotal";
 import { WarningModal } from "../../components/alerts/WarningModal";
+import { numberToRupiah } from "../../utils/NumberToRupiah";
 
 interface TotalProps {
-  order: string;
-  delivery: string;
-  tax: string;
-  sub_Total: string;
-  total: string;
+  order: number;
+  delivery: number;
+  tax: number;
+  sub_Total: number;
+  total: number;
 }
 
 export const CheckoutTotal = ({
@@ -33,29 +34,39 @@ export const CheckoutTotal = ({
       <div className="w-full border border-text rounded-xl border-opacity-10 p-4">
         <div className="flex justify-between">
           <span className="font-bold text-xl text-text">Order</span>
-          <span className="font-bold text-xl text-black">Rp {order}</span>
+          <span className="font-bold text-xl text-black">
+            {numberToRupiah(order)}
+          </span>
         </div>
 
         <div className="flex justify-between">
           <span className="font-bold text-xl text-text">Delivery</span>
-          <span className="font-bold text-xl text-black">Rp {delivery}</span>
+          <span className="font-bold text-xl text-black">
+            {numberToRupiah(delivery)}
+          </span>
         </div>
 
         <div className="flex justify-between">
           <span className="font-bold text-xl text-text">Tax</span>
-          <span className="font-bold text-xl text-black">Rp {tax}</span>
+          <span className="font-bold text-xl text-black">
+            {numberToRupiah(tax)}
+          </span>
         </div>
 
         <div className="flex justify-between">
           <span className="font-bold text-xl text-text">Sub Total</span>
-          <span className="font-bold text-xl text-black">Rp {sub_Total}</span>
+          <span className="font-bold text-xl text-black">
+            {numberToRupiah(sub_Total)}
+          </span>
         </div>
 
         <div className="w-full h-px bg-text my-4"></div>
 
         <div className="flex justify-between">
           <span className="font-bold text-xl text-text">Total</span>
-          <span className="font-bold text-xl text-black">Rp {total}</span>
+          <span className="font-bold text-xl text-black">
+            {numberToRupiah(total)}
+          </span>
         </div>
 
         <button

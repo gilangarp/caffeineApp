@@ -1,3 +1,4 @@
+import { numberToRupiah } from "../../utils/NumberToRupiah";
 import { ButtonText } from "../button/ButtonText";
 import { PrimaryButton } from "../button/PrimaryButton";
 
@@ -5,7 +6,7 @@ interface ModalProps {
   isOpen: boolean;
   onClose: () => void;
   onConfirm: () => void;
-  total: string;
+  total: number;
 }
 
 export const ConfirmationModal = ({
@@ -24,7 +25,7 @@ export const ConfirmationModal = ({
         </h1>
         <p className="text-lg text-text text-center mt-4">
           Are you sure you want to proceed with the checkout? Your total is{" "}
-          <span className="font-bold">Rp {total}</span>.
+          <span className="font-bold">{numberToRupiah(total)}</span>.
         </p>
         <div className="flex justify-center gap-4 mt-6">
           <ButtonText

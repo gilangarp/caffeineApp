@@ -5,14 +5,13 @@ import { useCallback } from "react";
 export const UseCheckOutOrder = () => {
   const { checkout } = useStoreSelector((state) => state.checkout);
   const navigate = useNavigate();
-  
+
   const handleClick = useCallback(() => {
     navigate("/product");
   }, [navigate]);
 
   const orderTotal = checkout.reduce((sum, product) => {
-    const price: string | number =
-    checkout[0]?.discount_price || checkout[0]?.product_price || 0;
+    const price: number = product.discount_price || product.product_price || 0;
     const numericPrice = typeof price === "string" ? parseFloat(price) : price;
     return sum + numericPrice * (product.count || 0);
   }, 0);

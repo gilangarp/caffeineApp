@@ -34,11 +34,11 @@ export const CheckoutOrder = () => {
         </div>
         <div>
           <CheckoutTotal
-            order={`IDR ${orderTotal.toLocaleString()}`}
-            delivery={`IDR ${deliveryFee.toLocaleString()}`}
-            sub_Total={`IDR ${subTotal.toLocaleString()}`}
-            tax={`IDR ${tax.toLocaleString()}`}
-            total={`IDR ${total.toLocaleString()}`}
+            order={orderTotal}
+            delivery={deliveryFee}
+            sub_Total={subTotal}
+            tax={tax}
+            total={total}
           />
         </div>
       </div>

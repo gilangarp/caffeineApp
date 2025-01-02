@@ -1,5 +1,6 @@
 import { Link } from "react-router-dom";
 import { IHistoryOrderBody } from "../../redux/types/TransactionType";
+import { numberToRupiah } from "../../utils/NumberToRupiah";
 
 interface OrderListProps {
   product: IHistoryOrderBody;
@@ -27,7 +28,8 @@ export const OrderItemCard = ({ product }: OrderListProps) => {
           </p>
           <Link
             to={`/order/${product.id}`}
-            className="underline text-oren text-base text-primary">
+            className="underline text-oren text-base text-primary"
+          >
             View Order
           </Link>
         </div>
@@ -48,7 +50,7 @@ export const OrderItemCard = ({ product }: OrderListProps) => {
           <p>Total</p>
         </div>
         <div className="font-bold text-base text-[#0B132A]">
-          IDR {product.grand_total}
+          {numberToRupiah(Number(product.grand_total))}
         </div>
       </div>
 

@@ -27,77 +27,82 @@ export const DetailProduct = () => {
     handleBuy,
   } = useProductDetail();
 
+  const productPrice =
+    productDetail.length > 0
+      ? productDetail[0].product.discount_price
+        ? productDetail[0].product.discount_price
+        : productDetail[0].product.product_price
+      : 0;
+
+  const originalPrice =
+    productDetail.length > 0 && productDetail[0].product.discount_price
+      ? productDetail[0].product.product_price
+      : 0;
+
   return (
     <div className="w-full grid gap-10 lg:grid-cols-2">
-        <div className="">
-          <MessageModal message={message} onClose={closeMessage} />
-          <ImageDisplay
-            currentImage={currentImage}
-            images={imagesArray}
-            onImageClick={handleImageClick}
+      <div className="">
+        <MessageModal message={message} onClose={closeMessage} />
+        <ImageDisplay
+          currentImage={currentImage}
+          images={imagesArray}
+          onImageClick={handleImageClick}
+        />
+      </div>
+      <div className="grid h-fit gap-5">
+        <ProductInfo
+          product_name={
+            productDetail.length > 0
+              ? productDetail[0].product.product_name || ""
+              : ""
+          }
+          product_price={productPrice}
+          discount_price={originalPrice}
+          product_description={
+            productDetail.length > 0
+              ? productDetail[0].product.product_description || ""
+              : ""
+          }
+          rating={
+            productDetail.length > 0
+              ? productDetail[0].product.rating || "5"
+              : ""
+          }
+        />
+        <QuantityInput
+          count={count}
+          onDecrement={handleDecrement}
+          onIncrement={handleIncrement}
+        />
+        <SizeInput
+          selectedSize={selectedSize}
+          onSizeChange={handleSizeChange}
+        />
+        <IceHotInput
+          selectedOption={selectedOption}
+          onOptionChange={handleOptionChange}
+        />
+        <div className="grid grid-cols-2 gap-3">
+          <PrimaryButton
+            onClick={handleBuy}
+            text="Buy"
+            style="w-full text-sm"
+            disabled={
+              selectedSize === undefined || selectedOption === undefined
+            }
           />
+          <button
+            onClick={handleBasketClick}
+            className="rounded-xl py-2 border-2 w-full border-primary bg-transparent text-sm flex justify-center items-center gap-3 text-primary"
+          >
+            <div className="w-6 h-auto">
+              {" "}
+              <AddShoppingCartIcon />{" "}
+            </div>
+            Add to cart
+          </button>
         </div>
-        <div className="grid h-fit gap-5">
-          <ProductInfo
-            product_name={
-              productDetail.length > 0
-                ? productDetail[0].product.product_name || ""
-                : ""
-            }
-            product_price={
-              productDetail.length > 0
-                ? productDetail[0].product.product_price || 0
-                : 0
-            }
-            discount_price={
-              productDetail.length > 0
-                ? productDetail[0].product.discount_price || "No Discount"
-                : "No Discount"
-            }
-            product_description={
-              productDetail.length > 0
-                ? productDetail[0].product.product_description || ""
-                : ""
-            }
-            rating={
-              productDetail.length > 0
-                ? productDetail[0].product.rating || "5"
-                : ""
-            }
-          />
-          <QuantityInput
-            count={count}
-            onDecrement={handleDecrement}
-            onIncrement={handleIncrement}
-          />
-          <SizeInput
-            selectedSize={selectedSize}
-            onSizeChange={handleSizeChange}
-          />
-          <IceHotInput
-            selectedOption={selectedOption}
-            onOptionChange={handleOptionChange}
-          />
-          <div className="grid grid-cols-2 gap-3">
-            <PrimaryButton
-              onClick={handleBuy}
-              text="Buy"
-              style="w-full text-sm"
-              disabled={
-                selectedSize === undefined || selectedOption === undefined
-              }
-            />
-            <button
-              onClick={handleBasketClick}
-              className="rounded-xl py-2 border-2 w-full border-primary bg-transparent text-sm flex justify-center items-center gap-3 text-primary">
-              <div className="w-6 h-auto">
-                {" "}
-                <AddShoppingCartIcon />{" "}
-              </div>
-              Add to cart
-            </button>
-          </div>
-        </div>
+      </div>
     </div>
   );
 };

@@ -1,22 +1,22 @@
-import { EmailInput } from "../../components/input/EmailInput";
 import { AddressInput } from "../../components/input/AddressInput";
 import { DeliveryInput } from "../../components/input/DeliveryInput";
+import { EmailInput } from "../../components/input/EmailInput";
 import { FullNameInput } from "../../components/input/FullNameInput";
-
+import { PaymentInput } from "../../components/input/PaymentInput";
 import { UseCheckoutTotal } from "./UseCheckoutTotal";
 
 export const PaymentInfo = () => {
   const {
-    email,
-    fullName,
-    address,
-    selectedDelivery,
+    user_address,
+    user_email,
+    user_fullname,
     handleEmailChange,
     handleFullNameChange,
     handleAddressChange,
     handleDeliveryChange,
-    onSubmitHandler,
-    dataProfile,
+    handlePaymentChange,
+    selected_delivery,
+    selected_payment,
   } = UseCheckoutTotal();
 
   return (
@@ -26,41 +26,33 @@ export const PaymentInfo = () => {
           Payment Info & Delivery
         </h1>
       </div>
-      <form className="w-full lg:w-3/6 grid gap-5" onSubmit={onSubmitHandler}>
+      <div className="w-full lg:w-3/6 grid gap-5">
         <EmailInput
           onChange={handleEmailChange}
           name="user_email"
-          value={email}
-          placeholder={
-            dataProfile.length > 0
-              ? `${dataProfile[0].user_email || "Enter Your Email"}`
-              : "Enter Your Email"
-          }
+          value={user_email}
+          placeholder="Enter Your Email"
         />
         <FullNameInput
           onChange={handleFullNameChange}
           name="user_fullname"
-          value={fullName}
-          placeholder={
-            dataProfile.length > 0
-              ? `${dataProfile[0].full_name || "Enter Your Full Name"}`
-              : "Enter Your Full Name"
-          }
+          value={user_fullname}
+          placeholder="Enter Your Full Name"
         />
         <AddressInput
           onChange={handleAddressChange}
-          value={address}
-          placeholder={
-            dataProfile.length > 0
-              ? `${dataProfile[0].address || "Enter Your Address"}`
-              : "Enter Your Address"
-          }
+          value={user_address}
+          placeholder="Enter Your Address"
         />
         <DeliveryInput
           onDeliveryChange={handleDeliveryChange}
-          selectedDelivery={selectedDelivery}
+          selectedDelivery={selected_delivery}
         />
-      </form>
+        <PaymentInput
+          onPaymentChange={handlePaymentChange}
+          selectedPayment={selected_payment}
+        />
+      </div>
     </div>
   );
 };

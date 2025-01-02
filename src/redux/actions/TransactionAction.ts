@@ -13,18 +13,28 @@ import { IOrderDetail } from "../types/TransactionType";
 
 export const historyOrderThunk = createAsyncThunk<
   { history: IHistoryOrderBody[]; pagination: IPagination },
-  { filters: IFilterHistoryOrder; uuid: string; currentPage: number; historyPerPage: number },
+  {
+    filters: IFilterHistoryOrder;
+    uuid: string;
+    currentPage: number;
+    historyPerPage: number;
+  },
   { rejectValue: { error: Error; status?: number } }
 >(
   "historyOrder/fetchHistory",
-  async ({ filters = {}, uuid, currentPage, historyPerPage }, { rejectWithValue }) => {
+  async (
+    { filters = {}, uuid, currentPage, historyPerPage },
+    { rejectWithValue }
+  ) => {
     try {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/transaction/history-order/${uuid}`;
+      const url = `${
+        import.meta.env.VITE_REACT_APP_API_URL
+      }/transaction/history-order/${uuid}`;
       const result: AxiosResponse<IHistoryResponse> = await axios.get(url, {
         params: { ...filters, page: currentPage, limit: historyPerPage },
       });
 
-      const dataToCache =  {
+      const dataToCache = {
         history: result.data.data,
         pagination: {
           totalData: result.data.meta?.totalData || 0,
@@ -44,8 +54,8 @@ export const historyOrderThunk = createAsyncThunk<
       }
       return rejectWithValue({ error: new Error("An unknown error occurred") });
     }
-  });
-
+  }
+);
 
 export const historyOrderDetailThunk = createAsyncThunk<
   IOrderDetail[],
@@ -76,9 +86,7 @@ export const transactionThunk = createAsyncThunk<
   ITransactionWithDetailsBody,
   { rejectValue: { error: string; status?: number } }
 >("transaction/create", async (form, { rejectWithValue }) => {
-  const { VITE_REACT_APP_API_URL } = import.meta.env;
-  const url = `${VITE_REACT_APP_API_URL}/transaction/add`;
-
+  const url = `${import.meta.env.VITE_REACT_APP_API_URL}/transaction/add`;
   try {
     const result: AxiosResponse<ITransactionResponse> = await axios.post(
       url,

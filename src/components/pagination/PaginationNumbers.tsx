@@ -12,7 +12,6 @@ export default function PaginationNumbers({
   totalPages,
   onPageChange,
 }: PaginationProps) {
-  
   const renderPaginationNumber = (pageNumber: number) => (
     <button
       key={pageNumber}
@@ -21,7 +20,8 @@ export default function PaginationNumbers({
         pageNumber === currentPage
           ? "bg-primary text-white font-bold"
           : "bg-[#E8E8E8] text-black"
-      }`}>
+      }`}
+    >
       {pageNumber}
     </button>
   );
@@ -29,7 +29,6 @@ export default function PaginationNumbers({
   const pageNumbers: JSX.Element[] = [];
   const startPage = Math.max(1, currentPage - 1);
   const endPage = Math.min(totalPages, startPage + 3);
-  console.log(totalPages)
 
   for (let i = startPage; i <= endPage; i++) {
     pageNumbers.push(renderPaginationNumber(i));
@@ -40,7 +39,8 @@ export default function PaginationNumbers({
       {currentPage > 1 && (
         <button
           onClick={() => onPageChange(currentPage - 1)}
-          className="px-3 py-3 bg-primary text-white rounded-full mr-2 transition-opacity duration-200 hover:opacity-80">
+          className="px-3 py-3 bg-primary text-white rounded-full mr-2 transition-opacity duration-200 hover:opacity-80"
+        >
           <KeyboardArrowLeftIcon />
         </button>
       )}
@@ -50,7 +50,8 @@ export default function PaginationNumbers({
       {currentPage < totalPages && (
         <button
           onClick={() => onPageChange(currentPage + 1)}
-          className="px-3 py-3 bg-primary text-white rounded-full transition-opacity duration-200 hover:opacity-80">
+          className="px-3 py-3 bg-primary text-white rounded-full transition-opacity duration-200 hover:opacity-80"
+        >
           <KeyboardArrowRightIcon />
         </button>
       )}

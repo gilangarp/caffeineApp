@@ -14,9 +14,10 @@ export const PrimaryButton = ({
   return (
     <button
       type="button"
-      className={`rounded-lg ${style} text-black py-2 bg-primary opacity-100 border-none text-sm`}
+      className={`rounded-lg ${style} text-black py-2 bg-primary opacity-100 border-none text-md`}
       disabled={disabled}
-      onClick={onClick}>
+      onClick={onClick}
+    >
       {text}
     </button>
   );

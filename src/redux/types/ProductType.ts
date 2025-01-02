@@ -34,7 +34,7 @@ interface IProduct {
   count: number;
   product_name?: string;
   product_price: number;
-  discount_price: string;
+  discount_price: number;
   product_description?: string;
   rating: string;
 }

@@ -1,3 +1,4 @@
+import { numberToRupiah } from "../../utils/NumberToRupiah";
 import { PrimaryButton } from "../button/PrimaryButton";
 import { Rating } from "../rating/Rating";
 import ShoppingCartIcon from "@mui/icons-material/ShoppingCart";
@@ -41,7 +42,7 @@ export const ProductCard = ({
         </p>
         <Rating textColor="text" rating={Number(product.rating)} />
         <p className="font-medium text-xl mb-3 text-primary">
-          IDR. {product.product_price}
+          {numberToRupiah(Number(product.product_price))}
         </p>
 
         <div className="flex w-full gap-3">
@@ -53,7 +54,8 @@ export const ProductCard = ({
 
           <button
             onClick={() => onBuyClick(product.id)}
-            className="py-1 px-3 rounded-md border border-primary bg-transparent text-primary items-center justify-center">
+            className="py-1 px-3 rounded-md border border-primary bg-transparent text-primary items-center justify-center"
+          >
             <div className="w-6 h-auto">
               <ShoppingCartIcon />
             </div>

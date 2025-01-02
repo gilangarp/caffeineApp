@@ -2,6 +2,7 @@ import { useStoreDispatch } from "../../redux/hook";
 import { checkoutAction } from "../../redux/slice/CheckoutSlice";
 import { ITransactionProduct } from "../../redux/types/ProductType";
 import ClearIcon from "@mui/icons-material/Clear";
+import { numberToRupiah } from "../../utils/NumberToRupiah";
 
 interface ICheckoutProductCard {
   product: ITransactionProduct;
@@ -32,7 +33,8 @@ export default function CheckoutProductCard({
   return (
     <div
       key={product.id}
-      className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 ">
+      className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 "
+    >
       <div className="w-auto h-auto grid justify-center items-center">
         <img
           className="w-[178px] h-[170px] object-cover"
@@ -66,11 +68,11 @@ export default function CheckoutProductCard({
           <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2 md:grid-cols-1 h-fit">
             {product.discount_price && (
               <div className="line-through text-red-800">
-                <p>{product.discount_price}</p>
+                <p>{numberToRupiah(Number(product.discount_price))}</p>
               </div>
             )}
             <div className="pl-5 text-xl text-[#FF8906]">
-              <p>IDR {product.product_price}</p>
+              <p>{numberToRupiah(Number(product.product_price))}</p>
             </div>
           </div>
         </div>
@@ -78,7 +80,8 @@ export default function CheckoutProductCard({
         <div className="flex items-center justify-end">
           <button
             onClick={() => dispatch(checkoutAction.removeProduct(productIndex))}
-            className="border-2 w-6 h-6 border-red-500 rounded-full flex items-center justify-center">
+            className="border-2 w-6 h-6 border-red-500 rounded-full flex items-center justify-center"
+          >
             <div className=" text-red-500 flex items-center justify-center">
               <ClearIcon fontSize="small" />
             </div>

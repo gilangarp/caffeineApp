@@ -98,7 +98,7 @@ export const UseCheckoutTotal = () => {
         });
       } else {
         setIsLoading(true);
-        navigate("/history-order");
+        navigate(`/history-order`);
         dispatch(checkoutAction.removeAll());
       }
     } catch (error) {

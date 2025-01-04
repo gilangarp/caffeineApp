@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { useStoreDispatch } from "../../redux/hook";
+import { useStoreDispatch } from "../../hooks/useStore";
 import { PrimaryButton } from "../button/PrimaryButton";
 import { checkoutAction } from "../../redux/slice/CheckoutSlice";
 
@@ -14,7 +14,7 @@ export const CheckoutMessageModal = ({
   textHeader,
   textBody,
   isOpen,
-  onConfirm
+  onConfirm,
 }: CheckoutModalProps) => {
   const dispatch = useStoreDispatch();
   const [isLoading, setIsLoading] = useState(false);
@@ -25,14 +25,15 @@ export const CheckoutMessageModal = ({
     setIsLoading(true);
     await dispatch(checkoutAction.removeAll());
     setTimeout(() => {
-      setIsLoading(false); 
+      setIsLoading(false);
       onConfirm();
     }, 2000);
   };
 
   return (
     <div
-      className={` fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center`}>
+      className={` fixed inset-0 bg-black bg-opacity-50 flex justify-center items-center`}
+    >
       <div className="modal-content bg-white p-6 rounded shadow-lg max-w-md uw:max-w-2xl w-3/4 tbt:w-full text-center">
         <h2 className="text-sm tbt:text-2xl uw:text-4xl font-semibold mb-4">
           {textHeader}
@@ -41,22 +42,21 @@ export const CheckoutMessageModal = ({
           {textBody}
         </p>
         {isLoading ? (
-           <PrimaryButton
-           style="w-full text-sm"
-           onClick={handleConfirm}
-           text="Checkout..."
-           disabled={isLoading} 
-         />
+          <PrimaryButton
+            style="w-full text-sm"
+            onClick={handleConfirm}
+            text="Checkout..."
+            disabled={isLoading}
+          />
         ) : (
           <PrimaryButton
             style="w-full text-sm"
             onClick={handleConfirm}
             text="Checkout"
-            disabled={isLoading} 
+            disabled={isLoading}
           />
         )}
       </div>
     </div>
   );
 };
-

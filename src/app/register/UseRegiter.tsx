@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { UserInputActions } from "../../redux/slice/UserInputSlice";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { useNavigate } from "react-router-dom";
 
 export const UseRegiter = () => {

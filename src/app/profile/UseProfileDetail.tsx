@@ -1,10 +1,9 @@
 import { ChangeEvent, FormEvent, useRef, useState } from "react";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { profileSettingActions } from "../../redux/slice/ProfileSettingSlice";
 
 export const UseProfileDetail = () => {
   const dispatch = useStoreDispatch();
-  const { isLoading } = useStoreSelector((state) => state.profile);
 
   const [formData, setFormData] = useState({
     profile_image: null as File | null,
@@ -54,6 +53,5 @@ export const UseProfileDetail = () => {
     handleButtonClick,
     fileInputRef,
     onSelectImage,
-    isLoading,
   };
 };

@@ -1,5 +1,5 @@
 import { useCallback, useState } from "react";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { historyOrderActions } from "../../redux/slice/HistoryOrderSlice";
 
 export const UseOrderHistory = () => {

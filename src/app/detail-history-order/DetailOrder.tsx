@@ -1,6 +1,6 @@
 import { OrderInfo } from "./OrderInfo";
 import { OrderItem } from "./OrderItem";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { useEffect } from "react";
 import { historyOrderDetailAction } from "../../redux/slice/HistoryOrderDetailSlice";
 import { useParams } from "react-router-dom";

@@ -1,4 +1,4 @@
-import { useStoreDispatch } from "../../redux/hook";
+import { useStoreDispatch } from "../../hooks/useStore";
 import { checkoutAction } from "../../redux/slice/CheckoutSlice";
 import { ITransactionProduct } from "../../redux/types/ProductType";
 import ClearIcon from "@mui/icons-material/Clear";

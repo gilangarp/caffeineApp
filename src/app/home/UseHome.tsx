@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { useEffect, useRef } from "react";
 import { filterActions } from "../../redux/slice/ProductSlice";
 

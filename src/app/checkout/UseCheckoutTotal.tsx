@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { UseCheckOutOrder } from "./UseCheckOutOrder";
 import { transactionThunk } from "../../redux/actions/TransactionAction";
 import { profileActions } from "../../redux/slice/ProfileSlice";

@@ -1,5 +1,5 @@
 import { useNavigate, useLocation } from "react-router-dom";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { useEffect, useState } from "react";
 import { filterActions } from "../../redux/slice/ProductSlice";
 
@@ -8,28 +8,30 @@ export const UseProductItem = () => {
   const location = useLocation();
   const dispatch = useStoreDispatch();
 
-  const { isLoading, product, filter, pagination } = useStoreSelector((state) => state.product);
-  
+  const { isLoading, product, filter, pagination } = useStoreSelector(
+    (state) => state.product
+  );
+
   const [productsPage, setProductsPage] = useState(4);
 
   useEffect(() => {
     const updateProductsPage = () => {
       if (window.matchMedia("(min-width: 768px)").matches) {
-        setProductsPage(6); 
+        setProductsPage(6);
       } else {
-        setProductsPage(4); 
+        setProductsPage(4);
       }
     };
-    updateProductsPage(); 
-    window.addEventListener("resize", updateProductsPage); 
+    updateProductsPage();
+    window.addEventListener("resize", updateProductsPage);
 
     return () => {
-      window.removeEventListener("resize", updateProductsPage); 
+      window.removeEventListener("resize", updateProductsPage);
     };
   }, []);
 
   const queryParams = new URLSearchParams(location.search);
-  const currentPageFromUrl = parseInt(queryParams.get("page") || "1"); 
+  const currentPageFromUrl = parseInt(queryParams.get("page") || "1");
   const [currentPage, setCurrentPage] = useState(currentPageFromUrl);
 
   useEffect(() => {
@@ -52,5 +54,12 @@ export const UseProductItem = () => {
     navigate(`/detail-product/${id}`);
   };
 
-  return { handleBuyClick, currentPage, setCurrentPage, isLoading, product, pagination };
+  return {
+    handleBuyClick,
+    currentPage,
+    setCurrentPage,
+    isLoading,
+    product,
+    pagination,
+  };
 };

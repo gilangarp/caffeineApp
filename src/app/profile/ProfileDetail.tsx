@@ -1,8 +1,17 @@
 import { IProfileBody } from "../../redux/types/ProfileType";
 import { UseProfileDetail } from "./UseProfileDetail";
+import { UseProfileSetting } from "./UseProfileSetting";
 
 export const ProfileDetail = ({ profile }: { profile: IProfileBody }) => {
-    const {imagePreview,onSubmitHandler,handleButtonClick,fileInputRef,onSelectImage,isLoading} = UseProfileDetail()
+  const {
+    imagePreview,
+    onSubmitHandler,
+    handleButtonClick,
+    fileInputRef,
+    onSelectImage,
+  } = UseProfileDetail();
+
+  const { isLoading } = UseProfileSetting();
   return (
     <div>
       <main>
@@ -22,7 +31,7 @@ export const ProfileDetail = ({ profile }: { profile: IProfileBody }) => {
               ) : (
                 <img
                   className="h-[113px] w-[113px]"
-                  src={profile.profile_image || ''}
+                  src={profile.profile_image || ""}
                   alt=""
                 />
               )}
@@ -46,9 +55,18 @@ export const ProfileDetail = ({ profile }: { profile: IProfileBody }) => {
                 {imagePreview && (
                   <button
                     type="submit"
-                    className="bg-primary hover:bg-primary w-full text-white font-bold py-2 px-4 rounded"
-                    disabled={isLoading}>
-                    {isLoading ? "Submit..." : "Submit"}
+                    className={`bg-primary w-full font-medium text-base flex items-center justify-center py-2 rounded-lg ${
+                      isLoading ? "opacity-50 cursor-not-allowed" : ""
+                    }`}
+                    disabled={isLoading}
+                  >
+                    {isLoading ? (
+                      <span className="flex items-center gap-2">
+                        <span className="loader-spinner"></span> Submit...
+                      </span>
+                    ) : (
+                      "Submit"
+                    )}
                   </button>
                 )}
               </form>

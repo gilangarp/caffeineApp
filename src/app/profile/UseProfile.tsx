@@ -1,5 +1,5 @@
 import { useEffect } from "react";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { profileActions } from "../../redux/slice/ProfileSlice";
 
 export const UseProfile = () => {

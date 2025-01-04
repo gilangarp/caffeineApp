@@ -1,8 +1,7 @@
 import { ChangeEvent, useEffect, useState } from "react";
 import { profileActions } from "../../redux/slice/ProfileSlice";
 import { profileSettingActions } from "../../redux/slice/ProfileSettingSlice";
-import { useStoreDispatch, useStoreSelector } from "../../redux/hook";
-import { userSettingThunk } from "../../redux/actions/UserActions";
+import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 
 export const UseProfileSetting = () => {
   const dispatch = useStoreDispatch();
@@ -54,7 +53,9 @@ export const UseProfileSetting = () => {
         };
 
         if (user_email || user_pass) {
-          await dispatch(userSettingThunk(formDataPasswordToSend));
+          await dispatch(
+            profileSettingActions.profileSettingThunk(formDataPasswordToSend)
+          );
         }
 
         setFormData({

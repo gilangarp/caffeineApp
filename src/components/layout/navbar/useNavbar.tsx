@@ -1,6 +1,6 @@
 import { ChangeEvent, FormEvent, useState } from "react";
 import { useLocation, useNavigate } from "react-router-dom";
-import { useStoreDispatch, useStoreSelector } from "../../../redux/hook";
+import { useStoreDispatch, useStoreSelector } from "../../../hooks/useStore";
 import { authAction } from "../../../redux/slice/AuthSlice";
 
 export const UseNavbar = () => {
@@ -23,10 +23,10 @@ export const UseNavbar = () => {
   const navigate = useNavigate();
 
   const handleSearchSubmit = (e: FormEvent) => {
-    e.preventDefault(); 
-    navigate('/product', { state: { searchQuery: searchValue } });
+    e.preventDefault();
+    navigate("/product", { state: { searchQuery: searchValue } });
 
-    setSearchValue('');
+    setSearchValue("");
     setShowSearchInput(false);
   };
 
@@ -38,8 +38,20 @@ export const UseNavbar = () => {
 
   const logout = () => {
     dispatch(authAction.logout());
-    navigate("/login");  
+    navigate("/login");
   };
 
-  return { location,handleSearchClick ,showSearchInput,searchValue,handleSearchSubmit, isLoggedIn,handleSearchChange, logout , isOpen,setIsOpen,cartItemCount };
+  return {
+    location,
+    handleSearchClick,
+    showSearchInput,
+    searchValue,
+    handleSearchSubmit,
+    isLoggedIn,
+    handleSearchChange,
+    logout,
+    isOpen,
+    setIsOpen,
+    cartItemCount,
+  };
 };

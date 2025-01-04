@@ -1,5 +1,5 @@
 import { useNavigate } from "react-router-dom";
-import { useStoreSelector } from "../../redux/hook";
+import { useStoreSelector } from "../../hooks/useStore";
 import { useCallback } from "react";
 
 export const UseCheckOutOrder = () => {

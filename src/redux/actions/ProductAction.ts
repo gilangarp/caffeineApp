@@ -17,22 +17,7 @@ export const productThunk = createAsyncThunk<
   { rejectValue: { error: string; status?: number } }
 >(
   "product/fetch",
-  async ({ filters, currentPage, productsPage }, { rejectWithValue }) => {
-    // Cek apakah data produk sudah ada di localStorage
-    const cacheKey = `products_${JSON.stringify(
-      filters
-    )}_${currentPage}_${productsPage}`;
-    const cachedData = localStorage.getItem(cacheKey);
-
-    if (cachedData) {
-      // Jika data ada di localStorage, langsung parse dan kembalikan data
-      const parsedData = JSON.parse(cachedData);
-      return {
-        products: parsedData.products,
-        pagination: parsedData.pagination,
-      };
-    }
-
+  async ({ filters, currentPage = 1, productsPage }, { rejectWithValue }) => {
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product`;
       console.log(`${import.meta.env.VITE_REACT_APP_API_URL}/product`);
@@ -40,7 +25,6 @@ export const productThunk = createAsyncThunk<
         params: { ...filters, page: currentPage, limit: productsPage },
       });
 
-      // Simpan data ke localStorage setelah berhasil mengambil dari API
       const dataToCache = {
         products: result.data.data,
         pagination: {
@@ -51,7 +35,6 @@ export const productThunk = createAsyncThunk<
           currentPage,
         },
       };
-      localStorage.setItem(cacheKey, JSON.stringify(dataToCache));
 
       return dataToCache;
     } catch (error) {

@@ -3,13 +3,10 @@ import { EmailInput } from "../../components/input/EmailInput";
 import { PasswordInput } from "../../components/input/PasswordInput";
 
 export const LoginForm = () => {
-  const { login, isLoading, form, onChangeHandler } = UseLogin();
+  const { login, isLoading, form, onChangeHandler, errorMessage } = UseLogin();
   return (
     <form className="grid gap-6" onSubmit={login}>
       <h1 className="font-semibold text-xl text-[#8E6447]">Login</h1>
-      <p className="font-normal text-base text-text">
-        Fill out the form correctly
-      </p>
 
       {/* email */}
       <div className="grid gap-3">
@@ -36,7 +33,8 @@ export const LoginForm = () => {
         className={`bg-primary font-medium text-base flex items-center justify-center py-2 rounded-lg ${
           isLoading ? "opacity-50 cursor-not-allowed" : ""
         }`}
-        disabled={isLoading}>
+        disabled={isLoading}
+      >
         {isLoading ? (
           <span className="flex items-center gap-2">
             <span className="loader-spinner"></span> Login...
@@ -45,6 +43,7 @@ export const LoginForm = () => {
           "Login"
         )}
       </button>
+      <h1>{errorMessage}</h1>
     </form>
   );
 };

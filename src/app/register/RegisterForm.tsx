@@ -7,8 +7,6 @@ export const RegisterForm = () => {
   return (
     <form className="grid gap-6" onSubmit={handleSubmit}>
       <h1 className="font-semibold text-xl text-[#8E6447]">Register</h1>
-      <p className="font-normal text-base">Fill out the form correctly</p>
-
       <div className="grid gap-3">
         <EmailInput
           name="user_email"
@@ -32,7 +30,8 @@ export const RegisterForm = () => {
         className={`bg-primary font-medium text-base flex items-center justify-center py-2 rounded-lg ${
           isLoading ? "opacity-50 cursor-not-allowed" : ""
         }`}
-        disabled={isLoading}>
+        disabled={isLoading}
+      >
         {isLoading ? (
           <span className="flex items-center gap-2">
             <span className="loader-spinner"></span> Registering...

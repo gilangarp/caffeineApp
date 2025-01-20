@@ -35,6 +35,7 @@ export const productThunk = createAsyncThunk<
 
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product`;
+      console.log(`${import.meta.env.VITE_REACT_APP_API_URL}/product`);
       const result: AxiosResponse<IProductResponse> = await axios.get(url, {
         params: { ...filters, page: currentPage, limit: productsPage },
       });
@@ -83,10 +84,14 @@ export const productDetailThunk = createAsyncThunk<
     return parsedData;
   }
   try {
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail/${id}`;
+    const url = `${
+      import.meta.env.VITE_REACT_APP_API_URL
+    }/product/detail/${id}`;
     const result: AxiosResponse<IProductDetailResponse> = await axios.get(url);
     const productData = result.data.data;
-    const dataToReturn = Array.isArray(productData)? productData: [productData];
+    const dataToReturn = Array.isArray(productData)
+      ? productData
+      : [productData];
     localStorage.setItem(cacheKey, JSON.stringify(dataToReturn));
 
     return dataToReturn;
@@ -111,36 +116,37 @@ export const productDetailCardThunk = createAsyncThunk<
   IDetailCardProduct[],
   { id: string },
   { rejectValue: { error: string; status?: number } }
->(
-  "product/fetchDetailCard",
-  async ({ id }, { rejectWithValue }) => {
-    const cacheKey = `product_detail_card_${id}`;
-    const cachedData = localStorage.getItem(cacheKey);
-    if (cachedData) {
-      const parsedData = JSON.parse(cachedData);
-      return parsedData;
-    }
-    try {
-      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product/detail-card/${id}`;
-      const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(url);
-      const productData = result.data.data;
-      localStorage.setItem(cacheKey, JSON.stringify(productData));
+>("product/fetchDetailCard", async ({ id }, { rejectWithValue }) => {
+  const cacheKey = `product_detail_card_${id}`;
+  const cachedData = localStorage.getItem(cacheKey);
+  if (cachedData) {
+    const parsedData = JSON.parse(cachedData);
+    return parsedData;
+  }
+  try {
+    const url = `${
+      import.meta.env.VITE_REACT_APP_API_URL
+    }/product/detail-card/${id}`;
+    const result: AxiosResponse<IProductDetailCardResponse> = await axios.get(
+      url
+    );
+    const productData = result.data.data;
+    localStorage.setItem(cacheKey, JSON.stringify(productData));
 
-      return productData;
-    } catch (error) {
-      if (error instanceof AxiosError) {
-        const errorMessage =
-          error.response?.data?.error?.message || "An unexpected error occurred";
-        const status = error.response?.status;
+    return productData;
+  } catch (error) {
+    if (error instanceof AxiosError) {
+      const errorMessage =
+        error.response?.data?.error?.message || "An unexpected error occurred";
+      const status = error.response?.status;
 
-        return rejectWithValue({
-          error: errorMessage,
-          status: status,
-        });
-      }
       return rejectWithValue({
-        error: "An unexpected error occurred.",
+        error: errorMessage,
+        status: status,
       });
     }
+    return rejectWithValue({
+      error: "An unexpected error occurred.",
+    });
   }
-);
+});

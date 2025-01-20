@@ -7,7 +7,9 @@ export const UseProfileSetting = () => {
   const dispatch = useStoreDispatch();
   const dataProfile = useStoreSelector((state) => state.profile.dataProfile);
   const authState = useStoreSelector((state) => state.auth);
-  const { isLoading } = useStoreSelector((state) => state.profileSetting);
+  const { isLoading, errorMessage } = useStoreSelector(
+    (state) => state.profileSetting
+  );
 
   const [formData, setFormData] = useState({
     full_name: "",
@@ -33,31 +35,30 @@ export const UseProfileSetting = () => {
         const { full_name, phone_number, address, user_email, user_pass } =
           formData;
 
-        const formDataToSend = {
-          full_name,
-          phone_number,
-          address,
-          id: authState.id,
-        };
-
         if (full_name || phone_number || address) {
+          const formDataToSend = {
+            full_name,
+            phone_number,
+            address,
+            id: authState.id,
+            token: authState.token,
+          };
           await dispatch(
             profileSettingActions.profileSettingThunk(formDataToSend)
           );
         }
 
-        const formDataPasswordToSend = {
-          user_email,
-          user_pass,
-          id: authState.id,
-        };
-
         if (user_email || user_pass) {
+          const formDataPasswordToSend = {
+            user_email,
+            user_pass,
+            id: authState.id,
+            token: authState.token,
+          };
           await dispatch(
-            profileSettingActions.profileSettingThunk(formDataPasswordToSend)
+            profileSettingActions.userSettingThunk(formDataPasswordToSend)
           );
         }
-
         setFormData({
           full_name: "",
           phone_number: "",
@@ -95,5 +96,6 @@ export const UseProfileSetting = () => {
     formData,
     onChangeHandler,
     isLoading,
+    errorMessage,
   };
 };

@@ -39,7 +39,6 @@ const profileSlice = createSlice({
   },
 });
 
-
 export const profileActions = {
   ...profileSlice.actions,
   profileThunk,

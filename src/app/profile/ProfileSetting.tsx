@@ -6,14 +6,21 @@ import { PhoneNumberInput } from "../../components/input/PhoneNumberInput";
 import { UseProfileSetting } from "./UseProfileSetting";
 
 export const ProfileSetting = () => {
-  const { onSubmitHandler, dataProfile, formData, onChangeHandler, isLoading } =
-    UseProfileSetting();
+  const {
+    onSubmitHandler,
+    dataProfile,
+    formData,
+    onChangeHandler,
+    isLoading,
+    errorMessage,
+  } = UseProfileSetting();
 
   return (
     <div className="profile-update-form basis-4/5 border-2 rounded-lg font-medium">
       <form
         className="flex flex-col gap-4 w-full p-8"
-        onSubmit={onSubmitHandler}>
+        onSubmit={onSubmitHandler}
+      >
         <div className="item-form gap-2">
           <FullNameInput
             onChange={onChangeHandler}
@@ -73,13 +80,15 @@ export const ProfileSetting = () => {
             value={formData.address}
           />
         </div>
+        {errorMessage && <p className="text-red-500">{errorMessage}</p>}
 
         <button
           type="submit"
           className={`bg-primary font-medium text-base flex items-center justify-center py-2 rounded-lg ${
             isLoading ? "opacity-50 cursor-not-allowed" : ""
           }`}
-          disabled={isLoading}>
+          disabled={isLoading}
+        >
           {isLoading ? (
             <span className="flex items-center gap-2">
               <span className="loader-spinner"></span> Submit...

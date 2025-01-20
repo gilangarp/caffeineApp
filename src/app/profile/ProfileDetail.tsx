@@ -24,13 +24,13 @@ export const ProfileDetail = ({ profile }: { profile: IProfileBody }) => {
             <div className="w-[113px] h-[113px]">
               {imagePreview ? (
                 <img
-                  className="h-[113px] w-[113px]"
+                  className="h-[113px] object-cover w-[113px]"
                   src={imagePreview}
                   alt="Preview"
                 />
               ) : (
                 <img
-                  className="h-[113px] w-[113px]"
+                  className="h-[113px] object-cover w-[113px]"
                   src={profile.profile_image || ""}
                   alt=""
                 />

@@ -1,7 +1,8 @@
 import { IBasicResponse } from "./ResponseType";
 
 export interface IUserBody {
-  id?:string;
+  id?: string;
+  token: string;
   user_email?: string;
   user_pass?: string;
 }

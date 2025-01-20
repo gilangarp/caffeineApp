@@ -13,7 +13,8 @@ export interface IProfileBody {
 
 export interface IProfileInputBody {
   id: string;
-  profile_image?: File | null;  
+  token: string;
+  profile_image?: File | null;
   username?: string;
   full_name?: string;
   phone_number?: string;
@@ -21,7 +22,6 @@ export interface IProfileInputBody {
   created_at?: string;
   address?: string;
 }
-
 
 export interface IUsersParams {
   id: string;

@@ -16,7 +16,8 @@ export const userInputThunk = createAsyncThunk<
     return result.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      const errorMessage = error.response?.data?.error?.message || "An unexpected error occurred";
+      const errorMessage =
+        error.response?.data?.error?.message || "An unexpected error occurred";
       const status = error.response?.status;
       return rejectWithValue({
         error: errorMessage,
@@ -27,9 +28,7 @@ export const userInputThunk = createAsyncThunk<
       error: "An unexpected error occurred.",
     });
   }
-}
-);
-
+});
 
 export const userSettingThunk = createAsyncThunk<
   IUserBody[],
@@ -37,17 +36,25 @@ export const userSettingThunk = createAsyncThunk<
   { rejectValue: { error: string; status?: number } }
 >("UserSettingThunk", async (params: IUserBody, { rejectWithValue }) => {
   try {
-    console.log(params.id)
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/setting/${params.id}`;
-    const result: AxiosResponse<IRegisterResponse> = await axios.patch( url, params,{
-      headers: {
-        'Content-Type': 'application/json'
+    const token = params.token;
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/setting/${
+      params.id
+    }`;
+    const result: AxiosResponse<IRegisterResponse> = await axios.patch(
+      url,
+      params,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${token}`,
+        },
       }
-    });
+    );
     return result.data.data;
   } catch (error) {
     if (error instanceof AxiosError) {
-      const errorMessage = error.response?.data?.error?.message || "An unexpected error occurred";
+      const errorMessage =
+        error.response?.data?.error?.message || "An unexpected error occurred";
       const status = error.response?.status;
       return rejectWithValue({
         error: errorMessage,
@@ -58,5 +65,4 @@ export const userSettingThunk = createAsyncThunk<
       error: "An unexpected error occurred.",
     });
   }
-}
-);
+});

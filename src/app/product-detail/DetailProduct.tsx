@@ -41,8 +41,8 @@ export const DetailProduct = () => {
 
   return (
     <div className="w-full grid gap-10 lg:grid-cols-2">
+      <MessageModal message={message} onClose={closeMessage} />
       <div className="">
-        <MessageModal message={message} onClose={closeMessage} />
         <ImageDisplay
           currentImage={currentImage}
           images={imagesArray}
@@ -96,8 +96,7 @@ export const DetailProduct = () => {
             className="rounded-xl py-2 border-2 w-full border-primary bg-transparent text-sm flex justify-center items-center gap-3 text-primary"
           >
             <div className="w-6 h-auto">
-              {" "}
-              <AddShoppingCartIcon />{" "}
+              <AddShoppingCartIcon />
             </div>
             Add to cart
           </button>

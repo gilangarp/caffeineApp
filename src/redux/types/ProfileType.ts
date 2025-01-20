@@ -13,7 +13,7 @@ export interface IProfileBody {
 
 export interface IProfileInputBody {
   id: string;
-  token: string;
+  token?: string;
   profile_image?: File | null;
   username?: string;
   full_name?: string;

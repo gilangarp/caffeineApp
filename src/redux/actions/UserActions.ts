@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { IRegisterResponse, IUserBody } from "../types/UserType";
 import axios, { AxiosError, AxiosResponse } from "axios";
+import { IProfileInputBody } from "../types/ProfileType";
 
 export const userInputThunk = createAsyncThunk<
   IUserBody[],
@@ -32,37 +33,41 @@ export const userInputThunk = createAsyncThunk<
 
 export const userSettingThunk = createAsyncThunk<
   IUserBody[],
-  IUserBody,
+  IProfileInputBody,
   { rejectValue: { error: string; status?: number } }
->("UserSettingThunk", async (params: IUserBody, { rejectWithValue }) => {
-  try {
-    const token = params.token;
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/setting/${
-      params.id
-    }`;
-    const result: AxiosResponse<IRegisterResponse> = await axios.patch(
-      url,
-      params,
-      {
-        headers: {
-          "Content-Type": "application/json",
-          Authorization: `Bearer ${token}`,
-        },
+>(
+  "UserSettingThunk",
+  async (params: IProfileInputBody, { rejectWithValue }) => {
+    try {
+      const token = params.token;
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/user/setting/${
+        params.id
+      }`;
+      const result: AxiosResponse<IRegisterResponse> = await axios.patch(
+        url,
+        params,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data.data;
+    } catch (error) {
+      if (error instanceof AxiosError) {
+        const errorMessage =
+          error.response?.data?.error?.message ||
+          "An unexpected error occurred";
+        const status = error.response?.status;
+        return rejectWithValue({
+          error: errorMessage,
+          status: status,
+        });
       }
-    );
-    return result.data.data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      const errorMessage =
-        error.response?.data?.error?.message || "An unexpected error occurred";
-      const status = error.response?.status;
       return rejectWithValue({
-        error: errorMessage,
-        status: status,
+        error: "An unexpected error occurred.",
       });
     }
-    return rejectWithValue({
-      error: "An unexpected error occurred.",
-    });
   }
-});
+);

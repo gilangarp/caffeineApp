@@ -1,5 +1,5 @@
 import { ProductCard } from "../../components/cards/ProductCard";
-import { UseFavorite } from "./UseHome";
+import { UseFavorite } from "./UseFavorite";
 
 export const Favorite = () => {
   const { handleBuyClick, product } = UseFavorite();
@@ -19,7 +19,8 @@ export const Favorite = () => {
       </div>
       <div
         style={{ overflowY: "hidden", scrollbarWidth: "none" }}
-        className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4">
+        className="slide-content grid justify-items-center items-center grid-cols-[1fr,1fr,1fr,1fr] gap-9 h-fit bg-white overflow-x-scroll snap-mandatory snap-x lg:overflow-x-auto lg:snap-none lg:grid-cols-4"
+      >
         {product && product.length > 0 ? (
           product
             .slice(0, 4)

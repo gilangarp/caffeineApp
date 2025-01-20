@@ -24,7 +24,10 @@ const testimonialSlice = createSlice({
   name: "testimonial",
   initialState,
   reducers: {
-    setTestimonials: (state, { payload }: PayloadAction<ITestimonialBody[]>) => {
+    setTestimonials: (
+      state,
+      { payload }: PayloadAction<ITestimonialBody[]>
+    ) => {
       state.user = payload;
     },
   },
@@ -44,7 +47,10 @@ const testimonialSlice = createSlice({
   },
 });
 
-export const testimonialActions ={ ...testimonialSlice.actions };
+export const testimonialActions = {
+  ...testimonialSlice.actions,
+  testimonialThunk,
+};
 
 export type testimonialState = ReturnType<typeof testimonialSlice.reducer>;
 export const testimonialReducer = testimonialSlice.reducer;

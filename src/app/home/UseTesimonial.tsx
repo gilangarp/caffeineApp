@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
-import { testimonialThunk } from "../../redux/actions/TestimonialAction";
+import { testimonialActions } from "../../redux/slice/TestimonialSlice";
 
 export const UseTesimonial = () => {
   const dispatch = useStoreDispatch();
@@ -10,7 +10,9 @@ export const UseTesimonial = () => {
 
   useEffect(() => {
     const testimonialPage = 1;
-    dispatch(testimonialThunk({ currentPage, testimonialPage }));
+    dispatch(
+      testimonialActions.testimonialThunk({ currentPage, testimonialPage })
+    );
   }, [dispatch, currentPage]);
 
   const handlePageChange = (page: number) => {

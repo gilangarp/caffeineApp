@@ -20,7 +20,6 @@ export const productThunk = createAsyncThunk<
   async ({ filters, currentPage = 1, productsPage }, { rejectWithValue }) => {
     try {
       const url = `${import.meta.env.VITE_REACT_APP_API_URL}/product`;
-      console.log(`${import.meta.env.VITE_REACT_APP_API_URL}/product`);
       const result: AxiosResponse<IProductResponse> = await axios.get(url, {
         params: { ...filters, page: currentPage, limit: productsPage },
       });

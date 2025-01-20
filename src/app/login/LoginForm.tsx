@@ -26,7 +26,7 @@ export const LoginForm = () => {
           placeholder="Enter Your Password"
         />
       </div>
-
+      {errorMessage && <p className="text-red-500">{errorMessage}</p>}
       {/* button login */}
       <button
         type="submit"
@@ -43,7 +43,6 @@ export const LoginForm = () => {
           "Login"
         )}
       </button>
-      <h1>{errorMessage}</h1>
     </form>
   );
 };

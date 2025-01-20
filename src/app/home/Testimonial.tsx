@@ -1,9 +1,9 @@
 import { TestimonialCard } from "../../components/cards/TestimonialCard";
-import { UseTesimonial } from "./UseTesimonial";
+import { UseTestimonial } from "./UseTestimonial";
 
 export const Testimonial = () => {
   const { user, currentPage, handlePageChange, pagination, dummyTestimonial } =
-    UseTesimonial();
+    UseTestimonial();
 
   return (
     <main>

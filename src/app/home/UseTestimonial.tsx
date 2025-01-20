@@ -2,7 +2,7 @@ import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { testimonialActions } from "../../redux/slice/TestimonialSlice";
 
-export const UseTesimonial = () => {
+export const UseTestimonial = () => {
   const dispatch = useStoreDispatch();
   const { user, pagination } = useStoreSelector((state) => state.testimonial);
 

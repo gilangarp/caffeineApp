@@ -13,7 +13,7 @@ export const CheckoutPage = () => {
         </>
       )}
 
-      <div id="snap-container"></div>
+      <div className="active:w-full active:h-screen" id="snap-container"></div>
     </div>
   );
 };

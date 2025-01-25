@@ -13,7 +13,8 @@ export interface ITestimonialResponse extends IBasicResponse {
 }
 
 export interface ITestimonialInputPayload {
-  id:string;
+  id: string;
+  token: string;
   comment: string;
   rating: number;
 }

@@ -1,10 +1,11 @@
+import { numberToRupiah } from "../../utils/NumberToRupiah";
+
 interface OrderItemProps {
   productImage: string;
   saleText?: string;
   productName: string;
   productDetails: string;
-  originalPrice: string;
-  discountedPrice: string | undefined;
+  productPrice: number;
 }
 
 export const OrderItem = ({
@@ -12,8 +13,7 @@ export const OrderItem = ({
   saleText,
   productName,
   productDetails,
-  originalPrice,
-  discountedPrice,
+  productPrice,
 }: OrderItemProps) => {
   return (
     <div className="grid grid-cols-1 grid-rows-2 md:grid-rows-1 md:grid-cols-[auto,1fr] items-center gap-3 p-3 border border-neutral-300">
@@ -36,11 +36,8 @@ export const OrderItem = ({
           <h1 className="text-lg text-text">{productDetails}</h1>
 
           <div className="grid grid-rows-1 grid-cols-1 md:grid-rows-2md:grid-cols-1 h-fit">
-            <div className="line-through text-red-800">
-              <p>{originalPrice}</p>
-            </div>
             <div className="pl-5 text-xl text-[#FF8906]">
-              <p>{discountedPrice}</p>
+              <p>{numberToRupiah(productPrice)}</p>
             </div>
           </div>
         </div>
@@ -53,7 +50,8 @@ export const OrderItem = ({
               viewBox="0 0 24 24"
               strokeWidth="1.5"
               stroke="currentColor"
-              className="size-6">
+              className="size-6"
+            >
               <path
                 strokeLinecap="round"
                 strokeLinejoin="round"

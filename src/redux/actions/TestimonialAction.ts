@@ -56,11 +56,19 @@ export const testimonialInputThunk = createAsyncThunk<
   { rejectValue: IRejectValue }
 >("testimonial/submit", async (form, { rejectWithValue }) => {
   try {
-    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/testimonial/add/${form.id}`;
+    const url = `${import.meta.env.VITE_REACT_APP_API_URL}/testimonial/add/${
+      form.id
+    }`;
 
     const result: AxiosResponse<ITestimonialInputResponse> = await axios.post(
       url,
-      form
+      form,
+      {
+        headers: {
+          "Content-Type": "application/json",
+          Authorization: `Bearer ${form.token}`,
+        },
+      }
     );
 
     const { user_id, comment, rating } = result.data;

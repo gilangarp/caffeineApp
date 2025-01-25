@@ -4,7 +4,7 @@ import { UseFavorite } from "./UseFavorite";
 export const Favorite = () => {
   const { handleBuyClick, product } = UseFavorite();
   return (
-    <div className="pl-5 pr-5 md:pl-5 md:pr-5 lg:pl-20 lg:pr-5 min-h-[70vh] md:min-h-[50vh] lg:min-h-[70vh] grid grid-rows-[auto,1fr] items-center justify-center py-5 lg:py10 font-jakarta">
+    <div className="pl-5 pr-5 md:pl-5 md:pr-5 lg:pl-20 lg:pr-5 min-h-[70vh] md:min-h-[50vh] lg:min-h-[70vh] grid grid-rows-[auto,1fr] items-center py-5 lg:py10 font-jakarta">
       <div className=" grid items-center justify-center p-4 gap-1">
         <h1 className="text-center text-heading_mobile lg:text-heading_desktop pb-4">
           Here is People’s <span className="text-[#8E6447]">favorite</span>

@@ -8,8 +8,8 @@ import {
   ITransactionResponse,
   ITransactionWithDetailsBody,
 } from "../types/TransactionType";
-import axios, { AxiosError, AxiosResponse } from "axios";
 import { IOrderDetail } from "../types/TransactionType";
+import axios, { AxiosError, AxiosResponse } from "axios";
 
 export const historyOrderThunk = createAsyncThunk<
   { history: IHistoryOrderBody[]; pagination: IPagination },
@@ -59,15 +59,21 @@ export const historyOrderThunk = createAsyncThunk<
 
 export const historyOrderDetailThunk = createAsyncThunk<
   IOrderDetail[],
-  { id: string },
+  { id: string; token: string },
   { rejectValue: { error: Error; status?: number } }
->("historyOrder/fetchHistory", async ({ id }, { rejectWithValue }) => {
+>("historyOrder/fetchHistory", async ({ id, token }, { rejectWithValue }) => {
   try {
     const url = `${
       import.meta.env.VITE_REACT_APP_API_URL
     }/transaction/detail-history/${id}`;
     const result: AxiosResponse<{ data: IOrderDetail[] }> = await axios.get(
-      url
+      url,
+      {
+        headers: {
+          "Content-Type": "multipart/form-data",
+          Authorization: `Bearer ${token}`,
+        },
+      }
     );
     return result.data.data;
   } catch (error) {
@@ -82,29 +88,45 @@ export const historyOrderDetailThunk = createAsyncThunk<
 });
 
 export const transactionThunk = createAsyncThunk<
-  IDataTransaction[],
+  IDataTransaction,
   ITransactionWithDetailsBody,
   { rejectValue: { error: string; status?: number } }
->("transaction/create", async (form, { rejectWithValue }) => {
-  const url = `${import.meta.env.VITE_REACT_APP_API_URL}/transaction/add`;
-  try {
-    const result: AxiosResponse<ITransactionResponse> = await axios.post(
-      url,
-      form
-    );
-    return result.data.data;
-  } catch (error) {
-    if (error instanceof AxiosError) {
-      const errorMessage =
-        error.response?.data?.error?.message || "An unexpected error occurred";
-      const status = error.response?.status;
+>(
+  "transaction/create",
+  async (data: ITransactionWithDetailsBody, { rejectWithValue }) => {
+    try {
+      const url = `${import.meta.env.VITE_REACT_APP_API_URL}/transaction/add`;
+      const token = data.token;
+      const result: AxiosResponse<ITransactionResponse> = await axios.post(
+        url,
+        data,
+        {
+          headers: {
+            "Content-Type": "application/json",
+            Authorization: `Bearer ${token}`,
+          },
+        }
+      );
+      return result.data.data;
+    } catch (error) {
+      if (axios.isAxiosError(error)) {
+        console.error(
+          "Axios Error:",
+          error.response?.data?.error?.message || error.message
+        );
+        const errorMessage =
+          error.response?.data?.error?.message ||
+          "An unexpected error occurred";
+        const status = error.response?.status;
+        return rejectWithValue({
+          error: errorMessage,
+          status: status,
+        });
+      }
+      console.error("Unexpected Error:", error);
       return rejectWithValue({
-        error: errorMessage,
-        status: status,
+        error: "An unexpected error occurred.",
       });
     }
-    return rejectWithValue({
-      error: "An unexpected error occurred.",
-    });
   }
-});
+);

@@ -23,7 +23,7 @@ export interface IOrderInfo {
   created_at: string;
   phone_number: string;
   address: string;
-  payment_method: string;
+  payment_type: string;
   shipping_method: string;
   status: string;
   grand_total: string;
@@ -61,6 +61,7 @@ export interface ITransactionBody {
 }
 
 export interface ITransactionWithDetailsBody {
+  token: string;
   user_id: string;
   full_name: string;
   user_email: string;
@@ -68,9 +69,6 @@ export interface ITransactionWithDetailsBody {
   payment_type: string;
   shipping_id: number;
   status_id: number;
-  subtotal: number;
-  tax: number;
-  grand_total: number;
   products: {
     product_id: string;
     size_id: string | number;
@@ -87,5 +85,5 @@ export interface IDataTransaction {
 }
 
 export interface ITransactionResponse extends IBasicResponse {
-  data: IDataTransaction[];
+  data: IDataTransaction;
 }

@@ -1,6 +1,5 @@
 import { useEffect, useState } from "react";
 import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
-import { UseCheckOutOrder } from "./UseCheckOutOrder";
 import { transactionThunk } from "../../redux/actions/TransactionAction";
 import { profileActions } from "../../redux/slice/ProfileSlice";
 import { paymentInfoActions } from "../../redux/slice/paymentInfoSlice";
@@ -13,13 +12,13 @@ export const UseCheckoutTotal = () => {
   const [isWarningModalOpen, setIsWarningModalOpen] = useState(false);
   const [isLoading, setIsLoading] = useState(false);
   const [isSnapEmbed, setIsSnapEmbed] = useState(false);
+  const [isStar, setIsStar] = useState(Number);
 
   const { snapEmbed } = useSnap();
   const dispatch = useStoreDispatch();
   const { checkout } = useStoreSelector((state) => state.checkout);
   const { dataProfile } = useStoreSelector((state) => state.profile);
   const { id, token } = useStoreSelector((state) => state.auth);
-  const { orderTotal, tax, total } = UseCheckOutOrder();
   const navigate = useNavigate();
 
   const {
@@ -52,21 +51,18 @@ export const UseCheckoutTotal = () => {
     }
 
     const statusId = selected_payment === "Cash" ? 3 : 1;
+
     const payload = {
       user_id: id || "",
+      token: token || "",
       full_name: user_fullname,
       address: user_address,
       user_email: user_email,
       shipping_id: selected_delivery,
       payment_type: selected_payment,
       status_id: statusId,
-      subtotal: orderTotal,
-      tax,
-      grand_total: total,
       products: checkout.map((item) => ({
         product_id: item.id || "",
-        product_name: item.product_name,
-        product_price: item.discount_price || item.product_price,
         size_id: item.size_id || "",
         fd_option_id: item.ice_hot || 0,
       })),
@@ -74,24 +70,21 @@ export const UseCheckoutTotal = () => {
 
     try {
       const action = await dispatch(transactionThunk(payload)).unwrap();
-      const transactionToken = action[0]?.token;
-      if (action[0].payment_method == "Midtrans") {
+      const transactionToken = action.token;
+      if (action.payment_method == "Midtrans") {
         setIsLoading(true);
         setIsSnapEmbed(true);
         snapEmbed(transactionToken, "snap-container", {
-          onSuccess: function (result) {
-            console.log("Transaction successful", result);
+          onSuccess: function () {
             setIsLoading(false);
             setIsSnapEmbed(false);
             dispatch(checkoutAction.removeAll());
           },
           onPending: function () {
-            console.log("Transaction is pending");
             setIsLoading(false);
             setIsSnapEmbed(false);
           },
           onClose: function () {
-            console.log("Snap widget closed");
             setIsLoading(false);
             setIsSnapEmbed(false);
           },
@@ -150,5 +143,7 @@ export const UseCheckoutTotal = () => {
     handleCheckoutClick,
     isLoading,
     isSnapEmbed,
+    isStar,
+    setIsStar,
   };
 };

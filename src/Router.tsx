@@ -66,7 +66,7 @@ export const Router = createBrowserRouter(
           }
         />
         <Route
-          path="order/:id"
+          path="/order/:id"
           element={
             <PrivateRoute to="/login" requiredRoles={["user"]}>
               <DetailHistoryOrderPage />

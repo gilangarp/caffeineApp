@@ -4,6 +4,7 @@ import { useStoreDispatch, useStoreSelector } from "../../hooks/useStore";
 import { useEffect } from "react";
 import { historyOrderDetailAction } from "../../redux/slice/HistoryOrderDetailSlice";
 import { useParams } from "react-router-dom";
+import { numberToRupiah } from "../../utils/NumberToRupiah";
 
 export const DetailOrder = () => {
   const dispatch = useStoreDispatch();
@@ -12,12 +13,13 @@ export const DetailOrder = () => {
   );
 
   const { id } = useParams<{ id: string }>();
+  const { token } = useStoreSelector((state) => state.auth);
 
   useEffect(() => {
-    if (id) {
-      dispatch(historyOrderDetailAction.historyOrderDetailThunk({ id }));
+    if (id && token) {
+      dispatch(historyOrderDetailAction.historyOrderDetailThunk({ id, token }));
     }
-  }, [dispatch, id]);
+  }, [dispatch, id, token]);
 
   if (!id) {
     return <div>Loading...</div>;
@@ -57,17 +59,13 @@ export const DetailOrder = () => {
               <OrderInfo label="Phone" value={order.info.phone_number} />
               <OrderInfo
                 label="Payment Method"
-                value={order.info.payment_method}
+                value={order.info.payment_type}
               />
               <OrderInfo label="Shipping" value={order.info.shipping_method} />
               <div className="flex-row flex justify-between py-3">
                 <h1 className="font-normal text-base">Total Transaksi</h1>
                 <div className="font-semibold text-base text-primary">
-                  {" "}
-                  IDR{" "}
-                  {new Intl.NumberFormat("id-ID").format(
-                    Number(order.info.grand_total)
-                  )}
+                  {numberToRupiah(Number(order.info.grand_total))}
                 </div>
               </div>
             </div>
@@ -84,10 +82,7 @@ export const DetailOrder = () => {
                 saleText={item.discount_price ? "Discount!" : ""}
                 productName={item.product_name}
                 productDetails={`${item.size} | ${item.option} | ${item.shipping_method}`}
-                originalPrice={`IDR ${item.product_price}`}
-                discountedPrice={
-                  item.discount_price ? `IDR ${item.discount_price}` : undefined
-                }
+                productPrice={item.product_price}
               />
             ))}
           </div>
